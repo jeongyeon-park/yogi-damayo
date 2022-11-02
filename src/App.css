@@ -1,38 +1,33 @@
-.App {
+@import url('https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR&display=swap');
+
+body{
+  font-family: 'Noto Sans KR', sans-serif;
+  padding: 30px;
+}
+/* HEADER */
+.Header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px;
+  font-family: 'Jua', sans-serif;
+  font-size: 25px;
+  border-bottom: 1px solid #ececec;
+}
+.Header .sub-menu{
+  width: 300px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+/* BULLETIN BOARD */
+.BulletinBoard{
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.BulletinBoard .bulletinboard-menu{
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  
 }
