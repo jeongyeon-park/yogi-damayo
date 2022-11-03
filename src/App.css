@@ -3,6 +3,7 @@
 body{
   font-family: 'Noto Sans KR', sans-serif;
   padding: 30px;
+  
 }
 /* HEADER */
 .Header{
@@ -21,6 +22,7 @@ body{
   align-items: center;
   font-size: 18px;
   text-align: center;
+ 
 }
 
 /* BULLETIN BOARD */
@@ -30,4 +32,67 @@ body{
 .BulletinBoard .bulletinboard-menu{
   display: flex;
   
+}
+
+/* QUESTION */
+.Question .info{
+  text-align: center;
+  margin-top: 40px;
+}
+.Question .form{
+  margin-top: 40px;
+  border-top: 1px solid grey;
+  border-bottom: 1px solid grey;
+  width: 100%;
+}
+.Question textarea{
+  width: 500px;
+  height: 200px;
+  resize: none;
+}
+.Question td{
+  border-bottom: 1px solid #ececec;
+  padding: 20px;
+}
+.Question .form-title{
+  border-right: 1px solid #ececec;
+  width: 30%;
+}
+
+.Question .form-contents{
+  width: 70%;
+}
+.Question .send-btn-wrap{
+  margin-top: 30px; 
+  text-align: center;
+}
+.Question .send-btn{
+  padding: 15px 60px;
+  color: #184D47;
+  background-color: #ffffff;
+  border: 1px solid #184D47;
+}
+.Question .checkBox{
+  margin-top: 30px;
+  text-align: center;
+}
+
+/* SUBMITTED PAGE */
+.submitted-page{
+  text-align: center;
+  padding: 40px;
+  margin-top: 30px;
+}
+.submitted-page button{
+  padding: 10px 60px;
+    color: #184D47;
+    background-color: #ffffff;
+    border: 1px solid #184D47;
+    margin-top: 40px;
+}
+
+/* INPUT TAG */
+.input-style{
+  padding:5px;
+  border: 1px solid #b4b4b4;
 }
