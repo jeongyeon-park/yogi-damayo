@@ -1,11 +1,28 @@
+import { useNavigate } from "react-router-dom";
+
 const Header = () => {
+
+    const navigate = useNavigate();
+
+    const goNotice = () => {
+        navigate("/notice");
+    }
+
+    const goHome = () => {
+        navigate("/");
+    }
+
+    const goQuesiton = () => {
+        navigate("/question");
+    }
+
     return (
         <div className='Header'>
-            <div>요기 담아요</div>
+            <div onClick={goHome}>요기 담아요</div>
             <div className='sub-menu'>
-                <div>공지사항</div>
-                <div>위치서비스</div>
-                <div>문의</div>
+                <div onClick={goNotice}>공지사항</div>
+                <div >위치서비스</div>
+                <div onClick={goQuesiton}>문의</div>
                 <div>최근 검색</div>
             </div>
         </div>

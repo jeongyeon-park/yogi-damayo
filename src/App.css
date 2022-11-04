@@ -96,3 +96,22 @@ body{
   padding:5px;
   border: 1px solid #b4b4b4;
 }
+
+/* NOTICE TABLE */
+.NoticeTable{
+  width: 100%;
+  margin-top: 30px;
+  
+}
+.NoticeTable table{
+  width: 100%;
+  border-collapse: collapse;
+}
+td {
+  border-bottom: 1px solid #ececec;
+ 
+}
+
+.NoticeTable th, td {
+  padding: 20px
+}
