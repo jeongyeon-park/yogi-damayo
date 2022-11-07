@@ -1,18 +1,23 @@
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { useNavigate, useParams } from "react-router-dom";
 
 const Header = () => {
 
     const navigate = useNavigate();
 
-    const goNotice = () => {
+
+
+
+    const goNotice = (e) => {
         navigate("/notice");
     }
 
-    const goHome = () => {
+    const goHome = (e) => {
         navigate("/");
+
     }
 
-    const goQuesiton = () => {
+    const goQuesiton = (e) => {
         navigate("/question");
     }
 
@@ -29,4 +34,4 @@ const Header = () => {
     );
 }
 
-export default Header;
+export default React.memo(Header);

@@ -4,7 +4,7 @@ import Notice from "./Notice";
 const Home = () => {
     return (
         <>
-            <Header />
+
         </>
     );
 }

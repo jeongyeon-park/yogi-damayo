@@ -1,21 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { NoticeListContext } from '../App';
+import { useNavigate } from 'react-router-dom';
 
 const NoticeTable = () => {
-    const [noticeList, setNoticeList] = useState([]);
-
-    const getNoticeList = async () => {
-        const res = await fetch("http://146.56.140.164:8080/notice"
-        ).then((res) => res.json()
-        ).then(data => setNoticeList(data.data));
-
-    }
-
-    // getNoticeList();
-
-    useEffect(() => {
-        getNoticeList()
-    }, []);
-
+    const noticeList = useContext(NoticeListContext);
+    const navigate = useNavigate();
 
     return (
         <div className="NoticeTable">
@@ -29,7 +18,7 @@ const NoticeTable = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {noticeList.map((item) => <tr style={{ "cursor": "pointer" }}><td>{item.nseq}</td><td className="thTitle">{item.title}</td><td>{item.writer}</td><td>{item.reg_date.slice(5, 10)}</td></tr>)}
+                    {noticeList.map((item) => <tr onClick={() => navigate(`/notice/${item.nseq}`)} key={item.nseq} style={{ "cursor": "pointer" }}><td>{item.nseq}</td><td className="thTitle">{item.title}</td><td>{item.writer}</td><td>{item.reg_date.slice(5, 10)}</td></tr>)}
                 </tbody>
             </table>
         </div>

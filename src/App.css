@@ -24,6 +24,11 @@ body{
   text-align: center;
  
 }
+.clicked {
+  color: #184D47;
+  text-decoration: underline; 
+  text-underline-position:under;
+}
 
 /* BULLETIN BOARD */
 .BulletinBoard{
@@ -66,7 +71,7 @@ body{
   margin-top: 30px; 
   text-align: center;
 }
-.Question .send-btn{
+.send-btn{
   padding: 15px 60px;
   color: #184D47;
   background-color: #ffffff;
@@ -114,4 +119,41 @@ td {
 
 .NoticeTable th, td {
   padding: 20px
+}
+
+/* Notice Content */
+.NoticeContent{
+  
+  margin: 30px;
+}
+.NoticeContent .notice-title{
+  margin-bottom: 20px;
+  font-weight: 700;
+  font-size: 20px;
+}
+.NoticeContent .notice-writer{
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid grey;
+}
+.NoticeContent .notice-content{
+  padding-top: 50px;
+  height: 200px;
+  margin-bottom: 50px;
+  
+}
+.NoticeContent .other-list{
+  margin-bottom: 50px;
+}
+.NoticeContent .other-list div{
+  padding-left: 10px;
+  border:1px solid #ececec;
+}
+.NoticeContent .other-list p{
+
+  border-right: 1px solid #ececec;
+}
+.NoticeContent .list-btn{
+  display: flex;
+  justify-content: end;
 }
