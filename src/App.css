@@ -157,3 +157,15 @@ td {
   display: flex;
   justify-content: end;
 }
+
+/* Pagenation */
+.pagenation{
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+}
+.pagenation span{
+  padding-left: 15px;
+  padding-right: 15px;
+  cursor: pointer;
+}
