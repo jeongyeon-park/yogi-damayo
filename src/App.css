@@ -40,6 +40,10 @@ body{
 }
 
 /* QUESTION */
+.Question {
+  margin-left: 10vw;
+  margin-right: 10vw;
+}
 .Question .info{
   text-align: center;
   margin-top: 40px;
@@ -61,11 +65,11 @@ body{
 }
 .Question .form-title{
   border-right: 1px solid #ececec;
-  width: 30%;
+  width: 30vw;
 }
 
 .Question .form-contents{
-  width: 70%;
+  width: 70vw;
 }
 .Question .send-btn-wrap{
   margin-top: 30px; 
@@ -73,13 +77,20 @@ body{
 }
 .send-btn{
   padding: 15px 60px;
-  color: #184D47;
+  color: #013b63;
   background-color: #ffffff;
-  border: 1px solid #184D47;
+  border: 1px solid #013b63;
+  font-weight: 700;
 }
 .Question .checkBox{
   margin-top: 30px;
   text-align: center;
+}
+.Question .input-alert {
+  color: #feb75d;
+}
+.Question .focus {
+  border: 1px solid #ffb350;
 }
 
 /* SUBMITTED PAGE */

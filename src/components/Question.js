@@ -8,9 +8,15 @@ const Question = ({ setSubmitTrue }) => {
         content: ""
     });
 
-    let inputEmail = useRef();
-    let inputTitle = useRef();
-    let inputContent = useRef();
+    const [error, setError] = useState({
+        emailAlert: "",
+        titleAlert: "",
+        contentAlert: "",
+        checkAlert: ""
+    });
+
+    const inputRef = useRef([]);
+    const emailCheck = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
 
     const handleChangeData = (e) => {
         setData({
@@ -18,6 +24,10 @@ const Question = ({ setSubmitTrue }) => {
             [e.target.name]: e.target.value
         });
     };
+
+    const handleValidation = () => {
+        return error.emailAlert || error.titleAlert || error.contentAlert || error.checkAlert;
+    }
 
     const postData = async () => {
         const res = await fetch('http://146.56.140.164:8080/suggestion', {
@@ -36,19 +46,33 @@ const Question = ({ setSubmitTrue }) => {
     }
 
     const handleSubmit = () => {
+        setError({
+            emailAlert: "",
+            titleAlert: "",
+            contentAlert: "",
+            checkAlert: ""
+        });
         if (!data.email.length) {
-            inputEmail.current.focus();
-            return;
+            inputRef.current[0].classList.add("focus");
+            setError({ ...error, emailAlert: "이메일을 입력해 주세요." });
+        } else if (!emailCheck.test(data.email)) {
+            inputRef.current[0].classList.add("focus");
+            setError({ ...error, emailAlert: "유효한 이메일을 입력해 주세요." });
         }
         if (!data.title.length) {
-            inputTitle.current.focus();
-            return;
+            inputRef.current[2].classList.add("focus");
+            setError({ ...error, titleAlert: "제목을 입력해 주세요." });
         }
         if (!data.content.length) {
-            inputContent.current.focus();
-            return;
+            inputRef.current[4].classList.add("focus");
+            // inputRef.current[5].innerText = "질문내용을 입력해 주세요.";
+            setError({ ...error, contentAlert: "질문내용을 입력해 주세요." });
         }
-        postData();
+        if (!inputRef.current[6].checked) {
+            // inputRef.current[7].innerText = "개인정보 수집 및 이용에 동의해 주세요.";
+            setError({ ...error, checkAlert: "개인정보 수집 및 이용에 동의해 주세요." });
+        }
+
     };
 
     return (
@@ -74,26 +98,30 @@ const Question = ({ setSubmitTrue }) => {
                         <tr>
                             <td className="form-title">이메일</td>
                             <td className="form-contents">
-                                <input className="input-style" ref={inputEmail} name="email" onChange={handleChangeData} />
+                                <input className="input-style" ref={(item) => (inputRef.current[0] = item)} name="email" onChange={handleChangeData} />
+                                <div className="input-alert">{error.emailAlert}</div>
                             </td>
                         </tr>
                         <tr>
                             <td className="form-title">제목</td>
                             <td className="form-contents">
-                                <input className="input-style" ref={inputTitle} name="title" onChange={handleChangeData} />
+                                <input className="input-style" ref={(item) => (inputRef.current[2] = item)} name="title" onChange={handleChangeData} />
+                                <div className="input-alert">{error.titleAlert}</div>
                             </td>
                         </tr>
                         <tr>
                             <td className="form-title">질문내용</td>
                             <td className="form-contents">
-                                <textarea className="input-style" ref={inputContent} name="content" onChange={handleChangeData} />
+                                <textarea className="input-style" ref={(item) => (inputRef.current[4] = item)} name="content" onChange={handleChangeData} />
+                                <div className="input-alert">{error.contentAlert}</div>
                             </td>
                         </tr>
                     </tbody>
                 </table>
                 <div className="checkBox">
-                    <input type="checkbox" />
+                    <input type="checkbox" ref={(item) => (inputRef.current[6] = item)} />
                     <label>개인정보 수집 및 이용에 동의합니다.</label>
+                    <div className="input-alert">{error.checkAlert}</div>
                 </div>
                 <div className="send-btn-wrap">
                     <button className="send-btn" onClick={handleSubmit} >문의하기</button>
