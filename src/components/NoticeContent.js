@@ -27,7 +27,7 @@ const NoticeContent = () => {
         });
         setNoticeContent({ ...selectedItem, index });
 
-    }, []);
+    }, [id]);
 
     return (
         <>
@@ -38,11 +38,17 @@ const NoticeContent = () => {
                 <div className='other-list'>
                     <div>
                         <p>이전글</p>
-                        <p></p>
+                        {noticeContent.index != 0
+                            ? <p onClick={() =>
+                                navigate(`/notice/${noticeData[noticeContent.index - 1].nseq}`)}>{noticeData[noticeContent.index - 1].title}</p>
+                            : <p>등록된 이전글이 없습니다.</p>}
                     </div>
                     <div>
                         <p>다음글</p>
-                        <p></p>
+                        {noticeContent.index != noticeContent.length - 1
+                            ? <p onClick={() =>
+                                navigate(`/notice/${noticeData[noticeContent.index + 1].nseq}`)}>{noticeData[noticeContent.index + 1].title}</p>
+                            : <p>등록된 다음글이 없습니다.</p>}
                     </div>
                 </div>
 
@@ -50,9 +56,6 @@ const NoticeContent = () => {
                     <button className="send-btn" onClick={() => navigate('/notice')}>목록</button>
                 </div>
             </div>
-
-
-
         </>
 
 

@@ -9,7 +9,7 @@ const NoticeTable = () => {
     const [page, setPage] = useState({
         currentPage: 1, // 현재 클라이언트가 몇 페이지에 있는지 알려줌 
         posts: useContext(NoticeListContext),  // fetch 된 데이터 
-        postsPerPage: 3
+        postsPerPage: 5
     });
     const handlePageNumbers = () => {
         let pageNumbers = [];
@@ -19,11 +19,17 @@ const NoticeTable = () => {
         return pageNumbers;
     }
 
-
     const [indexOfLastPost, setIndexOfLastPost] = useState(page.currentPage * page.postsPerPage); // 현재페이지의 마지막 글
     const [indexOfFirstPost, setindexOfFirstPost] = useState(indexOfLastPost - page.postsPerPage); // 현재페이지의 첫번째 글 
     const [currentPosts, setCurrentPosts] = useState(page.posts.slice(indexOfFirstPost, indexOfLastPost));
     const [pageNumbers, setPageNumbers] = useState(handlePageNumbers);
+
+    useEffect(() => {
+        setIndexOfLastPost(page.currentPage * page.postsPerPage);
+        setindexOfFirstPost(indexOfLastPost - page.postsPerPage);
+        setCurrentPosts(page.posts.slice(indexOfFirstPost, indexOfLastPost));
+        setPageNumbers(handlePageNumbers);
+    }, [page, indexOfLastPost, indexOfFirstPost])
 
 
     return (
