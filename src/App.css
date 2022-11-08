@@ -14,6 +14,7 @@ body{
   font-family: 'Jua', sans-serif;
   font-size: 25px;
   border-bottom: 1px solid #ececec;
+  margin-bottom: 40px;
 }
 .Header .sub-menu{
   width: 300px;
@@ -41,8 +42,8 @@ body{
 
 /* QUESTION */
 .Question {
-  margin-left: 10vw;
-  margin-right: 10vw;
+  width: 50vw;
+  margin: 0 auto;
 }
 .Question .info{
   text-align: center;
@@ -55,7 +56,7 @@ body{
   width: 100%;
 }
 .Question textarea{
-  width: 500px;
+  width: 70%;
   height: 200px;
   resize: none;
 }
@@ -115,12 +116,12 @@ body{
 
 /* NOTICE TABLE */
 .NoticeTable{
-  width: 100%;
-  margin-top: 30px;
-  
+  width: 70vw;
+  margin: 0 auto;
 }
 .NoticeTable table{
   width: 100%;
+  
   border-collapse: collapse;
 }
 td {
@@ -129,13 +130,14 @@ td {
 }
 
 .NoticeTable th, td {
-  padding: 20px
+  padding: 20px;
+  text-align:center;
 }
 
 /* Notice Content */
 .NoticeContent{
-  
-  margin: 30px;
+  width: 70vw;
+  margin: 0 auto;
 }
 .NoticeContent .notice-title{
   margin-bottom: 20px;
@@ -167,6 +169,13 @@ td {
 .NoticeContent .list-btn{
   display: flex;
   justify-content: end;
+}
+.NoticeContent .next-page{
+  display: flex;
+  
+}
+.NoticeContent .next-page p{
+  padding-left: 10px;
 }
 
 /* Pagenation */

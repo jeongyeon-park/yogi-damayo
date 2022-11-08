@@ -34,7 +34,7 @@ const NoticeTable = () => {
 
     return (
         <div className="NoticeTable">
-            <table>
+            <table className='notice-table'>
                 <thead>
                     <tr style={{ "borderBottom": "2px solid black" }}>
                         <th>번호</th>
@@ -49,7 +49,7 @@ const NoticeTable = () => {
                             <td>{item.nseq}</td>
                             <td className="thTitle">{item.title}</td>
                             <td>{item.writer}</td>
-                            <td>{item.reg_date.slice(5, 10)}</td>
+                            <td>{item.reg_date.slice(2, 10)}</td>
                         </tr>))}
                 </tbody>
             </table>
