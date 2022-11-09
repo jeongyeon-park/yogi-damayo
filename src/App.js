@@ -9,6 +9,8 @@ import NoticeContent from './components/NoticeContent';
 
 import React, { useState, useContext } from 'react';
 
+import { API } from './util/api';
+
 export const NoticeListContext = React.createContext();
 
 function App() {
@@ -16,7 +18,7 @@ function App() {
   const [noticeList, setNoticeList] = useState([]);
 
   const getNoticeList = async () => {
-    const res = await fetch("http://146.56.140.164:8080/notice"
+    const res = await fetch(`${API}/notice`
     ).then((res) => res.json()
     ).then(data => setNoticeList(data.data));
 

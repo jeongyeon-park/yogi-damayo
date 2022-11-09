@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import { API } from "../util/api";
 
 const Question = ({ setSubmitTrue }) => {
 
@@ -30,7 +31,7 @@ const Question = ({ setSubmitTrue }) => {
     }
 
     const postData = async () => {
-        const res = await fetch('http://146.56.140.164:8080/suggestion', {
+        const res = await fetch(`${API}/suggestion`, {
             method: "post",
             headers: {
                 "Content-Type": "application/json",
