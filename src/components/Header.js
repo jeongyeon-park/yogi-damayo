@@ -28,7 +28,7 @@ const Header = () => {
                 <div onClick={goNotice}>공지사항</div>
                 <div >위치서비스</div>
                 <div onClick={goQuesiton}>문의</div>
-                <div>최근 검색</div>
+                <div>로그인</div>
             </div>
         </div>
     );

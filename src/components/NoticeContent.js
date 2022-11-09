@@ -53,7 +53,7 @@ const NoticeContent = () => {
                 </div>
 
                 <div className='list-btn'>
-                    <button className="send-btn" onClick={() => navigate('/notice')}>목록</button>
+                    <button className="send-btn" onClick={() => navigate('/notice')}>목록 보기</button>
                 </div>
             </div>
         </>
