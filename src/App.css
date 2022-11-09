@@ -5,6 +5,26 @@ body{
   padding: 30px;
   
 }
+
+/* HOME */
+.Home{
+  width: 70vw;
+  height: 60vh;
+  margin: 0 auto;
+}
+.Home .info-wrap{
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.Home .main-info{
+  font-weight: 700;
+  font-size: 20px;
+}
+.Home .input-info{
+  
+}
+
 /* HEADER */
 .Header{
   display: flex;
