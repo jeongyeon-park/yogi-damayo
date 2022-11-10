@@ -2,8 +2,28 @@
 
 body{
   font-family: 'Noto Sans KR', sans-serif;
-  padding: 30px;
   
+  margin:0;
+}
+
+@media screen and (max-width: 768px){
+  .Header{
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 8px 24px;
+  }
+  .Header .middle-menu{
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  .right-menu{
+    display: none;
+  }
+  .toggleBtn{
+    display: block;
+  }
 }
 
 /* HOME */
@@ -45,20 +65,33 @@ body{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 30px;
+  padding: 8px 60px;
   font-family: 'Jua', sans-serif;
-  font-size: 25px;
+  
   border-bottom: 1px solid #ececec;
   margin-bottom: 40px;
 }
-.Header .sub-menu{
-  width: 300px;
+.home-icon{
+  font-size: 24px;
+}
+.Header .middle-menu{
   display: flex;
-  justify-content: space-between;
+  list-style: none;
   align-items: center;
-  font-size: 18px;
+  padding-left: 0;
   text-align: center;
+}
+.Header .middle-menu li{
+  padding: 8px 12px;
+}
+.Header .middle-menu li:hover{
  
+}
+.Header .toggleBtn {
+  position: absolute;
+  right: 32px;
+  font-size: 24px;
+  display: none;
 }
 .clicked {
   color: #184D47;
