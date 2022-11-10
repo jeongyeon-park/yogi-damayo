@@ -103,7 +103,7 @@ const Question = ({ setSubmitTrue }) => {
         handleError("title");
         handleError("agree");
 
-        if (!validationRef.current.length) {
+        if (!validationRef.current.length && data.content && data.email && data.title) {
             postData();
         }
     };

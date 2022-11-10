@@ -18,11 +18,26 @@ body{
   align-items: center;
 }
 .Home .main-info{
-  font-weight: 700;
+  font-family: 'Jua', sans-serif;
+  font-weight: 500;
+  font-size: 35px;
+}
+.Home .sub-info{
+  margin-top: 20px;
   font-size: 20px;
 }
 .Home .input-info{
-  
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 20px;
+}
+.Home .input-info:focus{
+  outline: none;
+}
+.Home .main-image{
+  width: 300px;
 }
 
 /* HEADER */
@@ -208,4 +223,22 @@ td {
   padding-left: 15px;
   padding-right: 15px;
   cursor: pointer;
+}
+
+/* Login */
+.Login{
+  display: flex;
+  width: 60vw;
+  margin: 0 auto;
+  justify-content:space-around;
+}
+.Login div{
+  padding: 20px 40px;
+}
+.Login .user{
+  padding: 20px 40px;
+  font-family: 'Jua', sans-serif;
+  border: 1px solid #FFCC71;
+  background-color: #FFCC71;
+  border-radius: 10px;
 }

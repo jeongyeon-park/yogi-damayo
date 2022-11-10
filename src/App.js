@@ -10,6 +10,7 @@ import NoticeContent from './components/NoticeContent';
 import React, { useState, useContext } from 'react';
 
 import { API } from './util/api';
+import Login from './pages/Login';
 
 export const NoticeListContext = React.createContext();
 
@@ -36,6 +37,7 @@ function App() {
             <Route path="/notice" exact element={<Notice />}></Route>
             <Route path="/notice/:id" element={<NoticeContent />}></Route>
             <Route path="/question" element={<BulletinBoard />}></Route>
+            <Route path="/login" element={<Login />}></Route>
           </Routes>
         </div>
       </BrowserRouter>
