@@ -59,6 +59,20 @@ body{
 .Home .main-image{
   width: 300px;
 }
+#file-upload{
+  display: none;
+}
+.custom-file-upload{
+    padding: 6px 12px;
+    cursor: pointer;
+}
+.icons{
+  margin-left: 15px;
+}
+.preview-img{
+  width: 20vw;
+  
+}
 
 /* HEADER */
 .Header{
