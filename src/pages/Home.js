@@ -45,8 +45,8 @@ const Home = () => {
             ).then((res) => res.json())
                 .then(res => {
                     if (res.statusCode == 200) {
-                        let infoNum = infoTag[res.data][0];
-                        navigate(`/info/${infoNum}`);
+
+                        navigate(`/info/${res.data}`);
                     }
                 })
         } catch (err) {

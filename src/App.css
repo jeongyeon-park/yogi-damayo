@@ -86,9 +86,45 @@ body{
   border: 1px solid #013b63;
   font-weight: 700;
   font-size: 14px;
-  width: 12vw;
+  width: 250px;
   margin-top: 10px;
   cursor: pointer;
+}
+/* INFO */
+.Info {
+  width: 40vw;
+  
+  margin: 0 auto;
+
+}
+.Info .main-content{
+  margin-top: 80px;
+}
+.Info .info-img-wrapper{
+  padding-left: 30px
+}
+.Info .info-description{
+  position:absolute;
+  top: 200px;
+  left: 1000px;
+}
+.Info .middle-content{
+  margin-top: 80px;
+
+}
+
+
+.info-title{
+  font-family: 'Jua', sans-serif;
+  font-size: 20px;
+}
+.info-title strong{
+  font-size: 30px;
+  font-weight: 550;
+}
+.info-cautions{
+  font-family: 'Jua', sans-serif;
+  font-size: 25px;
 }
 
 /* HEADER */
