@@ -3,6 +3,8 @@ import Header from './components/Header';
 import Home from './pages/Home';
 import Notice from './pages/Notice';
 import BulletinBoard from './pages/BulletinBoard';
+import Map from './pages/Map';
+import Info from './pages/Info';
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import NoticeContent from './components/NoticeContent';
@@ -34,10 +36,12 @@ function App() {
           <Header />
           <Routes>
             <Route path="/" element={<Home />}></Route>
+            <Route path="/info/:id" element={<Info />}></Route>
             <Route path="/notice" exact element={<Notice />}></Route>
             <Route path="/notice/:id" element={<NoticeContent />}></Route>
             <Route path="/question" element={<BulletinBoard />}></Route>
             <Route path="/login" element={<Login />}></Route>
+            <Route path="/map" element={<Map />}></Route>
           </Routes>
         </div>
       </BrowserRouter>

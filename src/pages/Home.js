@@ -6,7 +6,10 @@ import mainImg from '../util/main-image-2.jpg';
 
 import { IMAGE_API } from '../util/api';
 import { FaSearch, FaCamera } from 'react-icons/fa'
+
 import { useEffect, useState } from "react";
+import { infoTag } from "../util/img_text"
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
     const [file, setFile] = useState();
@@ -15,6 +18,8 @@ const Home = () => {
     const form = new FormData();
     const [formData, setFormData] = useState(form);
 
+
+    const navigate = useNavigate();
 
     const changeHandler = (e) => {
         const file = e.target.files[0];
@@ -32,14 +37,18 @@ const Home = () => {
 
     const postData = async (data) => {
         try {
-            const res = await fetch('http://119.209.77.170:5001/upload', {
+            const res = await fetch('/api/upload', {
                 method: "post",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data)
+
+                body: data
             }
-            ).then((res) => res.json());
+            ).then((res) => res.json())
+                .then(res => {
+                    if (res.statusCode == 200) {
+                        let infoNum = infoTag[res.data][0];
+                        navigate(`/info/${infoNum}`);
+                    }
+                })
         } catch (err) {
             console.log(err);
         }
