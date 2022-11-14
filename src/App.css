@@ -31,11 +31,10 @@ body{
   width: 70vw;
   height: 60vh;
   margin: 0 auto;
+  text-align: center;
 }
-.Home .info-wrap{
-  height: 100%;
-  display: flex;
-  align-items: center;
+.Home .info-wrap {
+  margin-top: 100px;
 }
 .Home .main-info{
   font-family: 'Jua', sans-serif;
@@ -70,8 +69,26 @@ body{
   margin-left: 15px;
 }
 .preview-img{
+  margin-top: 50px;
   width: 20vw;
   
+}
+.btn-list{
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.btn-list button {
+  padding: 15px 20px;
+  color: #013b63;
+  background-color: #ffffff;
+  border: 1px solid #013b63;
+  font-weight: 700;
+  font-size: 14px;
+  width: 12vw;
+  margin-top: 10px;
+  cursor: pointer;
 }
 
 /* HEADER */
@@ -281,11 +298,17 @@ td {
 }
 .Login div{
   padding: 20px 40px;
+ 
 }
-.Login .user{
-  padding: 20px 40px;
+.Login svg{
+  display: inline-block;
+  width: 100%;
+  margin: 0 auto;
+}
+.Login div{
+  width: 100px;
   font-family: 'Jua', sans-serif;
   border: 1px solid #FFCC71;
-  background-color: #FFCC71;
+  text-align: center;
   border-radius: 10px;
 }

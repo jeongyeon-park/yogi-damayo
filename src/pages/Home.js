@@ -80,18 +80,31 @@ const Home = () => {
                 </div>
             </div>
             {imgSrc ?
-                <p className="img-preview-wrapper">
+                <div className="img-preview-wrapper">
                     {
                         <>
                             <img src={imgSrc} alt="preview" className="preview-img" />
-                            <span onClick={searchHandler}>이 이미지로 검색하기  <FaSearch className="icons" size={22} /></span>
-                            <span>다른 이미지로 검색하기 </span>
+
+                            <div className="btn-list">
+                                <div className="btn-search">
+                                    <button onClick={searchHandler}>
+                                        이 이미지로 검색하기
+                                    </button>
+                                </div>
+
+                                <button className="btn-new-img">
+                                    <label htmlFor="file-upload" className="custom-file-upload">다른 이미지로 검색하기</label>
+                                    <input id="file-upload" type="file" accept="image/*" onChange={changeHandler} />
+                                </button>
+
+                            </div>
+
                         </>
                     }
-                </p>
+                </div>
                 : null
             }
-        </div>
+        </div >
     );
 }
 
