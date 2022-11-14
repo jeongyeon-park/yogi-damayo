@@ -26,6 +26,10 @@ const Header = () => {
         navigate("/login");
     }
 
+    const goMap = (e) => {
+        navigate("/map");
+    }
+
     const onToggle = () => {
         toggle.current.classList.toggle('active');
         console.log(toggle.current);
@@ -37,11 +41,11 @@ const Header = () => {
             </div>
 
             <ul className='middle-menu'>
-                <li >위치서비스</li>
+                <li onClick={goMap}>위치서비스</li>
                 <li onClick={goNotice}>공지사항</li>
                 <li onClick={goQuesiton}>문의</li>
                 <li>최근 검색 목록</li>
-                <li>요기 모여요</li>
+                <li >요기 모여요</li>
             </ul>
 
             <div className='right-menu'>
