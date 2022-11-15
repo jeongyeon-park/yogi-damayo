@@ -1,14 +1,38 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { infoTag } from "../util/img_text";
+import { API } from "../util/api";
 
 const Info = () => {
 
     const { id } = useParams();
 
+    const code = infoTag[id][0];
     const name = infoTag[id][1];
     const color = infoTag[id][2];
     const img = infoTag[id][3];
     const logo = infoTag[id][4] || null;
+
+    const [recycling, setRecycling] = useState();
+
+    useEffect(() => {
+        getRecycling();
+    }, []);
+
+    const getRecycling = async () => {
+        const res = await fetch(`${API}/method`, {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        }).then((res) => res.json());
+
+        if (res.statusCode == 200) {
+            setRecycling(res.data);
+            console.log(res);
+        }
+
+    }
 
     return (
 
