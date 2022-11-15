@@ -46,7 +46,7 @@ const Home = () => {
                 .then(res => {
                     if (res.statusCode == 200) {
 
-                        navigate(`/info/${res.data}`);
+                        navigate(`/info/${res.data.name}`);
                     }
                 })
         } catch (err) {

@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useNavigate, useParams } from "react-router-dom";
 import { FaHome, FaBars } from "react-icons/fa";
+import homeLogo from "../util/yogi_damayo_logo/home.jpg";
 
 const Header = () => {
 
@@ -37,7 +38,7 @@ const Header = () => {
     return (
         <div className='Header'>
             <div className="left-menu" onClick={goHome}>
-                <FaHome className='home-icon'></FaHome>
+                <img className='home-icon' src={homeLogo} alt='logo' />
             </div>
 
             <ul className='middle-menu'>
