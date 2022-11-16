@@ -10,7 +10,7 @@ import trashcanLogo from '../util/map_menu_logo/쓰레기통.png';
 import myLocationMarker from '../util/map_marker_img/내위치.png';
 import batteryMarker from '../util/map_marker_img/배터리2.png';
 import centerMarker from '../util/map_marker_img/센터1.png';
-import recycleMarker from '../util/map_marker_img/재활용2.png';
+import recycleMarker from '../util/map_marker_img/재활용1.png';
 
 
 const Map = () => {
@@ -27,12 +27,13 @@ const Map = () => {
         });
     }, [])
 
+
     useEffect(() => {
         if (currentPosition && code) {
             getMarkerInfo();
         }
         console.log("getMarker 실행");
-    }, [code])
+    }, [currentPosition, code])
 
     const getMarkerInfo = async () => {
         //`${API}/coordinate`
@@ -57,6 +58,7 @@ const Map = () => {
 
     const menuClick = (e) => {
         setCode({ code: e.target.value });
+        console.log(e.target.value);
     }
 
     return (
@@ -64,7 +66,7 @@ const Map = () => {
             <div className='map-intro'>주변의 재활용 센터를 찾아드려요!</div>
             <ul className='link-wrapper'>
                 <li value={0} onClick={menuClick}><img src={centerLogo} alt="재활용센터" width={25} />재활용센터</li>
-                <li value={1} onClick={menuClick}><img src={betteryLogo} alt="건전지" width={30} /><span>폐건전지&형광등</span></li>
+                <li value={1} onClick={menuClick}><img src={betteryLogo} alt="건전지" width={30} />폐건전지&형광등</li>
                 <li value={2} onClick={menuClick}><img src={trashcanLogo} alt="쓰레기" width={20} />쓰레기&재활용품</li>
                 <li><FaMapPin size={20} />내 위치</li>
             </ul>
@@ -89,7 +91,7 @@ const Map = () => {
                             <MapMarker
                                 key={idx}
                                 position={{ lat: item.lat, lng: item.lon }}
-                                image={{ src: centerMarker, size: { width: 35, height: 35 } }}
+                                image={{ src: markerImgs[item.code], size: { width: 35, height: 35 } }}
                             />)
                         }
                     </KakaoMap >
