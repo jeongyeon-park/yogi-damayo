@@ -35,9 +35,10 @@ const Map = () => {
     }, [code])
 
     const getMarkerInfo = async () => {
+        //`${API}/coordinate`
         try {
             let postData = { ...currentPosition, ...code };
-            let centerResponse = await fetch(`${API}/coordinate`, {
+            let centerResponse = await fetch("http://144.24.82.236:8080/coordinate", {
                 method: "post",
                 headers: {
                     "Content-Type": "application/json",
@@ -87,8 +88,8 @@ const Map = () => {
                         {markerList.map((item, idx) =>
                             <MapMarker
                                 key={idx}
-                                position={{ lat: item.lat, lon: item.lon }}
-                                image={{ src: centerMarker, size: { width: 30, height: 45 } }}
+                                position={{ lat: item.lat, lng: item.lon }}
+                                image={{ src: centerMarker, size: { width: 35, height: 35 } }}
                             />)
                         }
                     </KakaoMap >
