@@ -15,7 +15,7 @@ const SearchResultComponent = ({ type, name, img }) => {
         <div className="ResultComponent" onClick={onResultClick}>
             <img src={`img/search_result/${img}`} alt={name} style={{ "width": "100px", "height": "80px" }} />
             {console.log(process.env.PUBLIC_URL + `img/search_result/${img}`)}
-            <span>{name}</span>
+            <div style={{ "color": "blue" }}>{name}</div>
         </div>
     );
 }

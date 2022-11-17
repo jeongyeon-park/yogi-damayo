@@ -78,6 +78,11 @@ body{
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
+  border: 1px solid grey;
+}
+.ResultComponent{
+  width: 50%;
+  display: flex;
 }
 
 

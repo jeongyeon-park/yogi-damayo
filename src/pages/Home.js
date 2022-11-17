@@ -110,7 +110,7 @@ const Home = () => {
                     <label htmlFor="file-upload" className="custom-file-upload"><FaCamera className="icons" size={25} /></label>
                     <input id="file-upload" type="file" accept="image/*" onChange={fileChangeHandler} />
                     <div className="search-result">
-                        {searchResult.map((item, idx) => (<SearchResultComponent className="search-item" key={idx} type={item.type} name={item.d_name} img={item.d_image} />))}
+                        {searchResult.map((item, idx) => (<SearchResultComponent key={idx} type={item.type} name={item.d_name} img={item.d_image} />))}
                     </div>
 
 
