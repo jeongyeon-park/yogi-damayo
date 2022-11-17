@@ -6,25 +6,6 @@ body{
   margin:0;
 }
 
-@media screen and (max-width: 768px){
-  .Header{
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 8px 24px;
-  }
-  .Header .middle-menu{
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-  }
-  .right-menu{
-    display: none;
-  }
-  .toggleBtn{
-    display: block;
-  }
-}
 
 /* HOME */
 .Home{
@@ -90,6 +71,16 @@ body{
   margin-top: 10px;
   cursor: pointer;
 }
+
+/* Search Result */
+.search-result {
+  width: 50%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+
 /* INFO */
 .Info {
   width: 40vw;
@@ -139,8 +130,7 @@ body{
   margin-bottom: 40px;
 }
 .home-icon{
-  font-size: 24px;
-  width: 40px;
+  width: 80px;
 }
 .Header .middle-menu{
   display: flex;
@@ -150,14 +140,15 @@ body{
   text-align: center;
 }
 .Header .middle-menu li{
-  padding: 8px 12px;
+  padding: 5px 12px;
 }
 .Header .middle-menu li:hover{
  
 }
 .Header .toggleBtn {
   position: absolute;
-  right: 32px;
+  right: 25px;
+  top: 30px;
   font-size: 24px;
   display: none;
 }
@@ -400,3 +391,68 @@ td {
   margin-right: 30px;
 }
 
+
+
+@media screen and (max-width: 768px) {
+  html {
+    font-size: 62.5%;
+  }
+
+  /* HEADER */
+  .Header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 8px 24px;
+  }
+ 
+  .Header .middle-menu {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.6rem;
+    width: 100%;
+  }
+
+  .Header .right-menu{
+    display: none;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.6rem;
+  }
+
+  .Header .toggleBtn {
+    display: block;
+  }
+
+  .middle-menu.active,
+  .right-menu.active{
+    display: block;
+  }
+
+  /* HOME */
+  .Home{
+    width: 80vw;
+  }
+  .Home .info-wrap{
+    margin-top: 0;
+  }
+  .Home .main-info {
+   font-size: 2.5rem;
+  }
+  .Home .sub-info{
+    font-size: 1.6rem;
+  }
+  #file-upload{
+    font-size: 1.6rem;
+  }
+  
+  /* INFO */
+  .Info {
+    font-size: 1.5rem;
+    width: 80vw;
+  }
+  .Info .info-description{
+    position: static;
+  }
+}

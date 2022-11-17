@@ -102,7 +102,7 @@ const Home = () => {
                     <div className='main-info'>어디에 버리는 게 좋을까요? 🤔</div>
                     <div className='sub-info'>당신의 재활용을 도와드릴게요.</div>
                     <div className='sub-info'>재활용 방법이 궁금한 쓰레기의 이름을 입력하거나 사진을 찍어 검색해 보세요.</div>
-                    <div className='sub-info'></div>
+
                     <input className='input-info' onChange={keywordChangeHandler} placeholder="예) 콜라 라고 검색해 보세요! " />
                     <FaSearch className="icons" size={22} />
 
@@ -110,7 +110,7 @@ const Home = () => {
                     <label htmlFor="file-upload" className="custom-file-upload"><FaCamera className="icons" size={25} /></label>
                     <input id="file-upload" type="file" accept="image/*" onChange={fileChangeHandler} />
                     <div className="search-result">
-                        {searchResult.map((item, idx) => (<SearchResultComponent key={idx} type={item.type} name={item.d_name} img={item.d_image} />))}
+                        {searchResult.map((item, idx) => (<SearchResultComponent className="search-item" key={idx} type={item.type} name={item.d_name} img={item.d_image} />))}
                     </div>
 
 

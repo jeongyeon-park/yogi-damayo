@@ -1,13 +1,13 @@
 import React, { useRef, useState } from 'react';
 import { useNavigate, useParams } from "react-router-dom";
 import { FaHome, FaBars } from "react-icons/fa";
-import homeLogo from "../util/yogi_damayo_logo/home.jpg";
 
 const Header = () => {
 
     const navigate = useNavigate();
 
-    const toggle = useRef();
+    const menu = useRef();
+    const icons = useRef();
 
 
     const goNotice = (e) => {
@@ -32,28 +32,27 @@ const Header = () => {
     }
 
     const onToggle = () => {
-        toggle.current.classList.toggle('active');
-        console.log(toggle.current);
+        menu.current.classList.toggle('active');
+        icons.current.classList.toggle('active');
     }
     return (
         <div className='Header'>
             <div className="left-menu" onClick={goHome}>
-                <img className='home-icon' src={homeLogo} alt='logo' />
+                <img className='home-icon' src={"img/yogi_damayo_logo/yogi.jpg"} alt='logo' />
             </div>
 
-            <ul className='middle-menu'>
+            <ul className='middle-menu' ref={menu} >
                 <li onClick={goMap}>위치서비스</li>
                 <li onClick={goNotice}>공지사항</li>
                 <li onClick={goQuesiton}>문의</li>
-                <li>최근 검색 목록</li>
                 <li >요기 모여요</li>
             </ul>
 
-            <div className='right-menu'>
+            <div className='right-menu' ref={icons}>
                 <div onClick={goLogin}>로그인</div>
             </div>
 
-            <div className='toggleBtn' ref={toggle} onClick={onToggle}>
+            <div className='toggleBtn' onClick={onToggle}>
                 <FaBars ></FaBars>
             </div>
         </div>
