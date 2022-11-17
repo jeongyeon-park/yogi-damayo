@@ -78,7 +78,7 @@ body{
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
-  border: 1px solid grey;
+  padding-top:10px;
 }
 .ResultComponent{
   width: 50%;
