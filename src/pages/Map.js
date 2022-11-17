@@ -10,26 +10,26 @@ import trashcanLogo from '../util/map_menu_logo/쓰레기통.png';
 import myLocationMarker from '../util/map_marker_img/내위치.png';
 import batteryMarker from '../util/map_marker_img/배터리2.png';
 import centerMarker from '../util/map_marker_img/센터1.png';
-import recycleMarker from '../util/map_marker_img/재활용1.png';
+import recycleMarker from '../util/map_marker_img/재활용2.png';
 
 
 const Map = () => {
     const markerImgs = [centerMarker, batteryMarker, recycleMarker];
-    const [currentPosition, setPosition] = useState();
+    const [currentPosition, setPosition] = useState({ lat: 0, lng: 0 });
     const [code, setCode] = useState({ code: 0 });
     const [markerList, setMarkerList] = useState([]);
+    const [moveMap, setMoveMap] = useState([]);
 
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(function (position) {
             // console.log("Latitude is :", position.coords.latitude);
             // console.log("Longitude is :", position.coords.longitude);
-            setPosition({ lat: 37.570335, lon: 126.978243 });
+            setPosition({ lat: position.coords.latitude, lng: position.coords.longitude });
         });
     }, [])
 
-
     useEffect(() => {
-        if (currentPosition && code) {
+        if (currentPosition.lat && code) {
             getMarkerInfo();
         }
         console.log("getMarker 실행");
@@ -38,8 +38,8 @@ const Map = () => {
     const getMarkerInfo = async () => {
         //`${API}/coordinate`
         try {
-            let postData = { ...currentPosition, ...code };
-            let centerResponse = await fetch("http://144.24.82.236:8080/coordinate", {
+            let postData = { lat: currentPosition.lat, lon: currentPosition.lng, ...code };
+            let centerResponse = await fetch(`${API}/coordinate`, {
                 method: "post",
                 headers: {
                     "Content-Type": "application/json",
@@ -58,7 +58,6 @@ const Map = () => {
 
     const menuClick = (e) => {
         setCode({ code: e.target.value });
-        console.log(e.target.value);
     }
 
     return (
@@ -79,21 +78,21 @@ const Map = () => {
                 <div className='right-wrapper'>
 
                     <KakaoMap
-                        center={{ lat: 37.570335, lng: 126.978243 }}
+                        center={currentPosition}
                         style={{ width: "800px", height: "700px" }} >
                         <MapMarker
-                            position={{ lat: 37.570335, lng: 126.978243 }}
+                            position={currentPosition}
                             image={{ src: myLocationMarker, size: { width: 30, height: 45 } }}
                         />
 
 
-                        {markerList.map((item, idx) =>
+                        {markerList ? markerList.map((item, idx) =>
                             <MapMarker
                                 key={idx}
                                 position={{ lat: item.lat, lng: item.lon }}
                                 image={{ src: markerImgs[item.code], size: { width: 35, height: 35 } }}
                             />)
-                        }
+                            : null}
                     </KakaoMap >
                 </div>
 
