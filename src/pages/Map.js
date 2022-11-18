@@ -15,7 +15,7 @@ import recycleMarker from '../util/map_marker_img/재활용2.png';
 
 const Map = () => {
     const markerImgs = [centerMarker, batteryMarker, recycleMarker];
-    const [currentPosition, setPosition] = useState({ lat: 0, lng: 0 });
+    const [currentPosition, setPosition] = useState({ lat: 37.570335, lng: 126.9739 });
     const [code, setCode] = useState({ code: 0 });
     const [markerList, setMarkerList] = useState([]);
     const [moveMap, setMoveMap] = useState([]);

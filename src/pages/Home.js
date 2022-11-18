@@ -1,15 +1,7 @@
-import Header from "../components/Header";
-import Notice from "./Notice";
-
-import mainLogo from '../util/main-image.jpg';
-import mainImg from '../util/main-image-2.jpg';
-
-import { IMAGE_API } from '../util/api';
 import { API } from '../util/api';
 import { FaSearch, FaCamera } from 'react-icons/fa'
 
 import { useEffect, useState } from "react";
-import { infoTag } from "../util/img_text"
 import { useNavigate } from "react-router-dom";
 import SearchResultComponent from "../components/SearchResultComponent";
 

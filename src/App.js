@@ -5,6 +5,7 @@ import Notice from './pages/Notice';
 import BulletinBoard from './pages/BulletinBoard';
 import Map from './pages/Map';
 import Info from './pages/Info';
+import GrabAuth from './components/GrabAuth';
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import NoticeContent from './components/NoticeContent';
@@ -13,6 +14,7 @@ import React, { useState, useContext } from 'react';
 
 import { API } from './util/api';
 import Login from './pages/Login';
+import UserLogin from './pages/UserLogin';
 
 export const NoticeListContext = React.createContext();
 
@@ -36,12 +38,15 @@ function App() {
           <Header />
           <Routes>
             <Route path="/" element={<Home />}></Route>
+            <Route path="/oauth/kakao/callback" element={<GrabAuth />} />
             <Route path="/info/:id" element={<Info />}></Route>
             <Route path="/notice" exact element={<Notice />}></Route>
             <Route path="/notice/:id" element={<NoticeContent />}></Route>
             <Route path="/question" element={<BulletinBoard />}></Route>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/map" element={<Map />}></Route>
+            <Route path="/userLogin" element={<UserLogin />}></Route>
+            {/* <Route path="/adminLogin" element={<AdminLogin />}></Route> */}
           </Routes>
         </div>
       </BrowserRouter>

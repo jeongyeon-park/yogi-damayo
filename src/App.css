@@ -123,6 +123,13 @@ body{
   font-size: 25px;
 }
 
+/* LOGIN */
+.UserLogin{
+  text-align: center;
+  font-family: 'Jua', sans-serif;
+}
+
+
 /* HEADER */
 .Header{
   display: flex;

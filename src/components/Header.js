@@ -38,7 +38,7 @@ const Header = () => {
     return (
         <div className='Header'>
             <div className="left-menu" onClick={goHome}>
-                <img className='home-icon' src={"img/yogi_damayo_logo/yogi.jpg"} alt='logo' />
+                <img className='home-icon' src={"/img/yogi_damayo_logo/yogi.jpg"} alt='logo' />
             </div>
 
             <ul className='middle-menu' ref={menu} >
