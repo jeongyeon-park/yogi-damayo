@@ -1,13 +1,12 @@
 import React from 'react';
 import axios from 'axios';
-import { KAKAO_REDIRECT_URI } from './OAuth';
 import { API } from '../util/api'
 import { useNavigate } from 'react-router-dom';
 
 const GrabAuth = () => {
     let auth_code = new URL(window.location.href).searchParams.get("code");
-    //const url = `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=7a8c9cf9e63bae4750c392fc2390e44b&redirect_uri=${KAKAO_REDIRECT_URI}&code=${auth_code}`;
-    const url = `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=7a8c9cf9e63bae4750c392fc2390e44b&redirect_uri=${KAKAO_REDIRECT_URI}&code=${auth_code}`
+
+    const url = `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${process.env.REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_KAKAO_CALLBACK_URI}&code=${auth_code}`
     const navigate = useNavigate();
 
     const getAccessToken = async () => {
@@ -42,7 +41,7 @@ const GrabAuth = () => {
 
 
     return (
-        <div>로그인 중입니다. </div>
+        <div style={{ "textAlign": "center" }}>로그인 중입니다. </div>
 
     );
 }
