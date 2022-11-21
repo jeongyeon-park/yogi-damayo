@@ -7,6 +7,16 @@ import WriteItemComponent from "../components/WriteItemComponent";
 const Room = () => {
     const { rum } = useParams();
     const [msgList, setMsgList] = useState([]);
+    const [title, setTitle] = useState([]);
+    const [data, setData] = useState({
+        "files": null,
+        "rum": rum,
+        "nickname": "",
+        "content": ""
+    });
+    const token = sessionStorage.getItem('jwtToken');
+
+
 
     useEffect(() => {
         getRoomMsg();
@@ -16,13 +26,20 @@ const Room = () => {
         const res = await fetch(`${API}/post/${rum}`)
             .then((res) => res.json())
             .then((res) => {
-                console.log(res);
-                setMsgList(res.data);
+                if (res.statusCode == 200) {
+                    setMsgList(() => res.data.content);
+                    setTitle(() => res.data.title);
+                } else {
+                    setMsgList([]);
+                }
             });
     }
 
+
+
     return (
         <div className="Room">
+            <div style={{ "textAlign": "center" }}>{title}</div>
             <div className="write-wrap" style={{ "marginBottom": "40px" }}>
                 <div className="WriteItemComponent">
                     <div className="top-wrap" style={{ "display": "flex", "justifyContent": "start", "alignItems": "center" }}>
@@ -41,9 +58,12 @@ const Room = () => {
 
 
             <div className="msg-list-wrap">
-                {msgList.length != 0 ? msgList.map((item) =>
-                    <WriteItemComponent key={item.pseq} item={item} />
-                ) : <div>게시글이 없네요. 첫번째 게시글을 작성 해보세요.</div>}
+                {msgList.length === 0 ?
+                    <div>게시글이 없네요. 첫번째 게시글을 작성 해보세요.</div> :
+                    msgList.map((item) =>
+                        <WriteItemComponent key={item.pseq} item={item} />
+                    )
+                }
             </div>
         </div>
     );

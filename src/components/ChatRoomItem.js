@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { API } from '../util/api';
 
 const ChatRoomItem = ({ data }) => {
     console.log(data);
     const [info, setInfo] = useState(data);
+    const navigate = useNavigate();
 
 
     const checkRoomType = async () => {
@@ -34,7 +36,7 @@ const ChatRoomItem = ({ data }) => {
 
 
     return (
-        <div className='RoomItem' style={{ "border": "1px solid grey", "borderRadius": "5px", "width": "20rem", "padding": "20px" }}>
+        <div className='RoomItem' onClick={() => navigate(`/yogimoyo/room/${info['rum']}`)} style={{ "border": "1px solid grey", "borderRadius": "5px", "width": "20rem", "padding": "20px" }}>
             <img src="/img/yogi_damayo_logo/AdminLogin.jpg" alt="image" style={{ "width": "100%" }} />
             <div><strong>{info['title']}</strong></div>
             <div>{info['count']}명 / {info['maxnum']}명</div>
