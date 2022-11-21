@@ -1,50 +1,42 @@
-import React, { useEffect } from 'react';
-import { REDIRECT_URI } from './OAuth';
+import React from 'react';
+import axios from 'axios';
+import { KAKAO_REDIRECT_URI } from './OAuth';
+import { API } from '../util/api'
+import { useNavigate } from 'react-router-dom';
 
 const GrabAuth = () => {
     let auth_code = new URL(window.location.href).searchParams.get("code");
-    // const url = 'http://localhost:3000/oauth/callback/kakao';
-    console.log(auth_code);
+    //const url = `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=7a8c9cf9e63bae4750c392fc2390e44b&redirect_uri=${KAKAO_REDIRECT_URI}&code=${auth_code}`;
+    const url = `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=7a8c9cf9e63bae4750c392fc2390e44b&redirect_uri=${KAKAO_REDIRECT_URI}&code=${auth_code}`
+    const navigate = useNavigate();
 
     const getAccessToken = async () => {
         try {
-            const response = await fetch(`https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=7a8c9cf9e63bae4750c392fc2390e44b&redirect_uri=${REDIRECT_URI}&code=${auth_code}`,
-                {
-                    method: "POST",
-                    headers: {
-                        'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
-                    },
-                }).then(res => res.json())
-                .then.then((data) => {
-                    console.log(data)
-                })
-            console.log(response);
+            const response = await axios.post(url, {});
             const accessToken = response.data.access_token;
             console.log(accessToken);
-
-            // getUserInfo(accessToken);
+            getUserInfo(accessToken);
         } catch (e) {
             console.log(e);
         }
     }
 
-    // const getUserInfo = async (accessToken) => {
-    //     try {
-    //         const userInfo = await axios.get('https://www.wannawalk.co.kr:8001/user/login/kakao/', {
-    //             headers: {
-    //                 'Authorization': `Bearer ${accessToken}`
-    //             },
-    //         })
-    //         console.log(userInfo.data.token);
+    const getUserInfo = async (accessToken) => {
+        try {
+            const userInfo = await axios.get(`${API}/user/login/kakao?token=${accessToken}`)
+            console.log(userInfo.data.token);
 
-    //         sessionStorage.setItem('jwtToken', userInfo.data.token);
-    //         sessionStorage.getItem('jwtToken');
-
-    //         document.location.href = '/';
-    //     } catch (e) {
-    //         console.log(e);
-    //     }
-    // }
+            if (userInfo.data.statusCode == 203) {
+                navigate(`/oauth/nickname/${userInfo.data.data}`);
+            } else if (userInfo.data.statusCode == 200) {
+                console.log(userInfo);
+                sessionStorage.setItem("jwtToken", userInfo.data.data["jwt token"])
+                document.location.href = '/';
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
     getAccessToken();
 

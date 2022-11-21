@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 
-const SearchResultComponent = ({ type, name, img }) => {
+const SearchResultComponent = ({ no, type, name, img }) => {
 
     let srcUrl = `search_img/${img}`;
     const navigate = useNavigate();
@@ -12,11 +12,18 @@ const SearchResultComponent = ({ type, name, img }) => {
     }
 
     return (
-        <div className="ResultComponent" onClick={onResultClick}>
-            <img src={`img/search_result/${img}`} alt={name} style={{ "width": "100px", "height": "80px" }} />
-            {console.log(process.env.PUBLIC_URL + `img/search_result/${img}`)}
-            <div style={{ "color": "blue" }}>{name}</div>
-        </div>
+        <>
+            {
+                no == 999 ? <div> 미등록 쓰레기입니다. <br />요기담아요에 요청을 남겨주시면 빠르게 반영하겠습니다!</div>
+                    :
+                    <div className="ResultComponent" onClick={onResultClick}>
+                        <img src={`img/search_result/${img}`} alt={name} style={{ "width": "100px", "height": "80px", "marginRight": "10px" }} />
+                        {console.log(process.env.PUBLIC_URL + `img/search_result/${img}`)}
+                        <div style={{ "color": "blue", "display": "flex", "alignItems": "center", "textDecoration": "underline", "whiteSpace": "noWrap" }}>{name}</div>
+                    </div>
+            }
+        </>
+
     );
 }
 

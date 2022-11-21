@@ -10,11 +10,14 @@ import GrabAuth from './components/GrabAuth';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import NoticeContent from './components/NoticeContent';
 
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 
 import { API } from './util/api';
 import Login from './pages/Login';
 import UserLogin from './pages/UserLogin';
+import GrabAuthNaver from './components/GrabAuthNaver';
+import LoginEmailInput from './components/LoginEmailInput';
+import Community from './pages/Community';
 
 export const NoticeListContext = React.createContext();
 
@@ -26,10 +29,9 @@ function App() {
     const res = await fetch(`${API}/notice`
     ).then((res) => res.json()
     ).then(data => setNoticeList(data.data));
-
   }
 
-  useState(() => { getNoticeList() }, []);
+  useEffect(() => { getNoticeList() }, []);
 
   return (
     <NoticeListContext.Provider value={noticeList}>
@@ -39,7 +41,10 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />}></Route>
             <Route path="/oauth/kakao/callback" element={<GrabAuth />} />
+            <Route path="/oauth/naver/callback" element={<GrabAuthNaver />} />
+            <Route path='/oauth/nickname/:email' element={<LoginEmailInput />} />
             <Route path="/info/:id" element={<Info />}></Route>
+            <Route path="/yogimoyo" element={<Community />}></Route>
             <Route path="/notice" exact element={<Notice />}></Route>
             <Route path="/notice/:id" element={<NoticeContent />}></Route>
             <Route path="/question" element={<BulletinBoard />}></Route>

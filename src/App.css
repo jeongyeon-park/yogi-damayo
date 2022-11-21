@@ -6,7 +6,10 @@ body{
   margin:0;
 }
 
-
+.icons{
+  position: relative;
+  right: 80px; 
+}
 /* HOME */
 .Home{
   width: 70vw;
@@ -72,9 +75,14 @@ body{
   cursor: pointer;
 }
 
+.input-info{
+  width: 25rem; 
+  margin-left: 6rem;
+}
+
 /* Search Result */
 .search-result {
-  width: 50%;
+  width: 450px;
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
@@ -83,6 +91,7 @@ body{
 .ResultComponent{
   width: 50%;
   display: flex;
+
 }
 
 
@@ -143,6 +152,7 @@ body{
 }
 .home-icon{
   width: 80px;
+  cursor: pointer;
 }
 .Header .middle-menu{
   display: flex;
@@ -151,11 +161,14 @@ body{
   padding-left: 0;
   text-align: center;
 }
+
 .Header .middle-menu li{
   padding: 5px 12px;
+  cursor: pointer;
 }
-.Header .middle-menu li:hover{
- 
+
+.Header .right-menu{
+  cursor: pointer;
 }
 .Header .toggleBtn {
   position: absolute;
@@ -169,7 +182,10 @@ body{
   text-decoration: underline; 
   text-underline-position:under;
 }
-
+.input-tag{
+  margin-top: 30px;
+  
+}
 /* BULLETIN BOARD */
 .BulletinBoard{
 
@@ -352,6 +368,21 @@ td {
   text-align: center;
   border-radius: 10px;
 }
+.LoginEmailInput {
+  text-align: center;
+  font-family: 'Jua', sans-serif;
+}
+.LoginEmailInput input{
+  border:1px solid #ececec;
+  padding: 8px;
+}
+.LoginEmailInput button{
+  padding: 10px 60px;
+  color: #184D47;
+  background-color: #ffffff;
+  border: 1px solid #184D47;
+  margin-top: 40px;
+}
 
 /* MAP */
 .Map {
@@ -403,6 +434,44 @@ td {
   margin-right: 30px;
 }
 
+/* Community */
+.Community{
+  text-align: center;
+  width: 80vw;
+  margin: 0 auto;
+}
+.Community .title{
+  font-family: 'Jua', sans-serif;
+  font-size: 1.6rem;
+}
+.create-room{
+  border: 1px solid grey;
+  display: block;
+}
+
+.tag-search{
+  padding:10px 20px;
+  width: 20rem;
+  border-radius: 5px;
+  border: 1px solid grey;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+.tag-list{
+  width: 25rem;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.tag{
+  padding:5px 10px;
+  border: 1px solid #ececec;
+  border-radius: 20px;
+}
+.hide{
+  display: none;
+}
 
 
 @media screen and (max-width: 768px) {
@@ -424,6 +493,7 @@ td {
     font-size: 1.6rem;
     width: 100%;
   }
+
 
   .Header .right-menu{
     display: none;
@@ -458,6 +528,10 @@ td {
   #file-upload{
     font-size: 1.6rem;
   }
+ 
+  .input-info{
+    font-size: 1rem;
+  }
   
   /* INFO */
   .Info {
@@ -467,4 +541,45 @@ td {
   .Info .info-description{
     position: static;
   }
+
+  /* Search Result */
+  .search-result{
+    display: block;
+
+
+  }
+  
+.ResultComponent{
+  width: 70%;
+  margin-bottom: 15px;
+  display: flex;
+}
+
+.input-info{
+  width: 75vw;
+  margin: 0;
+}
+
+.custom-file-upload{
+
+  position: relative;
+  bottom: 30px;
+  right: -180px;
+}
+.search-svg{
+  position: relative;
+  bottom: 30px;
+  right: -110px;
+}
+
+/* MAP */
+.Map .link-wrapper{
+  display: flex;
+  flex-wrap: wrap;
+}
+.Map .link-wrapper li{
+  width: 50%;
+  font-size: 1rem;
+}
+
 }

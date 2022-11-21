@@ -14,8 +14,6 @@ const Info = () => {
     const logo = infoTag[id][4] || null;
 
     const [recycling, setRecycling] = useState([]);
-    const [keyword, setKeyword] = useState("");
-
 
     useEffect(() => {
         getRecycling();
@@ -45,10 +43,6 @@ const Info = () => {
         }
     }
 
-    const handleSearch = () => {
-
-    }
-
     return (
 
         <div className='Info'>
@@ -63,7 +57,7 @@ const Info = () => {
 
                 <div className='info-description'>
                     {logo ? <img src={logo} alt={"logo"} style={{ "width": "65px", "height": "65px" }} /> : null}
-                    <p className='info-title'><strong style={{ "color": color }}>{name}</strong> 맞나요?</p>
+                    <p className='info-title'><strong style={{ "color": color }}>{name}</strong> </p>
                     <p>{name} 분리수거 주의 사항을 아래에서 확인해주세요. </p>
                 </div>
             </div>
