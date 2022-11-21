@@ -473,6 +473,32 @@ td {
   display: none;
 }
 
+/* SearchCommunity*/
+.SearchCommunity{
+  width: 100%;
+  margin: 0 auto;
+}
+.search-wrap{
+  text-align: center;
+}
+.result-wrap{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+}
+.result-wrap div{
+  margin: 10px 20px;
+}
+
+/* Room */
+.Room{
+  width: 50vw;
+  margin: 0 auto;
+}
+.WriteItemComponent {
+  padding: 10px;
+}
 
 @media screen and (max-width: 768px) {
   html {

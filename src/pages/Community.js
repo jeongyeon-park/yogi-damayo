@@ -4,6 +4,7 @@ import { FaPlus, FaHashtag, FaSearch } from "react-icons/fa";
 import axios from 'axios';
 import Modal from 'react-modal';
 import ChatRoomItem from '../components/ChatRoomItem';
+import { useNavigate } from 'react-router-dom';
 
 const NewRoomPopup = ({ nickname }) => {
 
@@ -59,6 +60,7 @@ const Community = () => {
     const [userInfo, setUserInfo] = useState({ "nickname": "", "email": "" });
     const [search, setSearch] = useState("");
     const [chatList, setChatList] = useState([]);
+    const [myRoomList, setMyRoomList] = useState([]);
     const [msg, setMsg] = useState("");
 
     const [modalOpen, setModalOpen] = useState(false);
@@ -67,9 +69,16 @@ const Community = () => {
 
     const resultTag = useRef();
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         postToken();
     }, []);
+    useEffect(() => {
+        if (userInfo.nickname.length) {
+            getMyRooms();
+        }
+    }, [userInfo]);
 
     const postToken = async () => {
         try {
@@ -91,6 +100,22 @@ const Community = () => {
         }
     }
 
+    const getMyRooms = async () => {
+        try {
+            const res = await fetch(`${API}/room/${userInfo.nickname}`
+            ).then((res) => res.json()
+            ).then(res => {
+                if (res.statusCode == 200) {
+                    setMyRoomList(res.data);
+                    console.log(res.data);
+                }
+            }
+            );
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
     const handleChange = (e) => {
         setSearch(e.target.value);
     }
@@ -102,7 +127,6 @@ const Community = () => {
     }
 
     const getSearchChat = async () => {
-
         try {
             const res = await fetch(`${API}/searchroom?keyword=${search}`
             ).then((res) => res.json()
@@ -121,8 +145,9 @@ const Community = () => {
         } catch (e) {
             console.log(e);
         }
-
     }
+
+
 
     return (
         <div className='Community'>
@@ -134,17 +159,20 @@ const Community = () => {
                     <p>이곳은 요기담아요의 커뮤니티 요기모여요 입니다.</p>
                     <p>요기모여요에서 다양한 커뮤니티 활동을 즐겨보세요!</p>
                 </div>
-                <div className='tag' onClick={() => setModalOpen(true)} style={{ "color": "#689f38", "width": "20rem", "margin": "0 auto", "border": "1px solid #689f38" }}><span><FaPlus style={{ "marginTop": "5px" }} /> 내 방 보기</span> </div>
-                <div className='tag' style={{ "color": "#6D8DB6", "width": "20rem", "margin": "0 auto", "border": "1px solid #6D8DB6" }}><span><FaPlus style={{ "marginTop": "5px" }} /> 내 방 만들기</span> </div>
+                <div className='tag' onClick={() => setModalOpen(true)} style={{ "color": "#6D8DB6", "width": "20rem", "margin": "0 auto", "border": "1px solid #6D8DB6" }}><span><FaPlus style={{ "marginTop": "5px" }} /> 내 방 만들기</span> </div>
+                <div className='tag' onClick={() => navigate('/yogimoyo/search')} style={{ "color": "#689f38", "width": "20rem", "margin": "0 auto", "border": "1px solid #689f38" }}><span><FaSearch style={{ "marginTop": "5px" }} /> 이름/태그로 방 검색하기</span> </div>
 
-                <div>
-                    <input className="tag-search" placeholder='이름/태그 검색' onChange={handleChange} /><FaSearch style={{ "position": "relative", "right": "30px", "top": "3px" }} onClick={clickSearch} />
-                    <div>{msg}</div>
-                </div>
                 <div className='tag-list'>
                     <div className='tag'><span><FaHashtag style={{ "marginTop": "5px" }} />동작구</span></div>
                     <div className='tag'><span><FaHashtag style={{ "marginTop": "5px" }} />쓰레기_분리수거</span></div>
                     <div className='tag'><span><FaHashtag style={{ "marginTop": "5px" }} />페트병</span></div>
+                </div>
+                <div className='my-room-list' style={{ "marginTop": "20px" }}>
+                    <div style={{ "marginBottom": "20px" }}><strong>내 방 목록</strong></div>
+                    {myRoomList.length == 0 ?
+                        <div>아직 참여한 방이 없어요! <br />관심있는 주제로 검색하거나 새로운 방을 만들어서 <br /> 커뮤니티에 참여해보세요!</div>
+                        :
+                        <div></div>}
                 </div>
 
                 <Modal isOpen={modalOpen} onRequestClose={() => setModalOpen(false)} size="sm">

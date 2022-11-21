@@ -18,6 +18,8 @@ import UserLogin from './pages/UserLogin';
 import GrabAuthNaver from './components/GrabAuthNaver';
 import LoginEmailInput from './components/LoginEmailInput';
 import Community from './pages/Community';
+import SearchCommunity from './pages/SearchCommunity';
+import Room from './pages/Room';
 
 export const NoticeListContext = React.createContext();
 
@@ -44,7 +46,9 @@ function App() {
             <Route path="/oauth/naver/callback" element={<GrabAuthNaver />} />
             <Route path='/oauth/nickname/:email' element={<LoginEmailInput />} />
             <Route path="/info/:id" element={<Info />}></Route>
-            <Route path="/yogimoyo" element={<Community />}></Route>
+            <Route path="/yogimoyo" exac element={<Community />}></Route>
+            <Route path='/yogimoyo/search' element={<SearchCommunity />}></Route>
+            <Route path='/yogimoyo/room/:rum' element={<Room />}></Route>
             <Route path="/notice" exact element={<Notice />}></Route>
             <Route path="/notice/:id" element={<NoticeContent />}></Route>
             <Route path="/question" element={<BulletinBoard />}></Route>
