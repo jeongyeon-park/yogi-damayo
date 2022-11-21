@@ -5,6 +5,7 @@ import axios from 'axios';
 import Modal from 'react-modal';
 import ChatRoomItem from '../components/ChatRoomItem';
 import { useNavigate } from 'react-router-dom';
+import styled from "styled-components";
 
 const NewRoomPopup = ({ nickname }) => {
 
