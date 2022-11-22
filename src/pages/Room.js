@@ -3,22 +3,27 @@ import { useParams } from "react-router-dom";
 import { API } from '../util/api';
 import { FaImages } from 'react-icons/fa'
 import WriteItemComponent from "../components/WriteItemComponent";
-import { useContext } from "react";
-import { NickNameContext } from "../App";
+import { useNavigate } from 'react-router-dom';
+
 const Room = () => {
-    const nickname = useContext(NickNameContext).nickname;
+    const token = sessionStorage.getItem('jwtToken');
+    const [nickname, setNickname] = useState("");
     const { rum } = useParams();
     const [msgList, setMsgList] = useState([]);
     const [title, setTitle] = useState([]);
     const [data, setData] = useState({
-        "files": null,
+        "files": [],
         "rum": rum,
-        "nickname": nickname,
+        "nickname": "",
         "content": ""
     });
 
+    const [myImage, setMyImage] = useState([]);
+
     useEffect(() => {
+        postToken();
         getRoomMsg();
+
     }, [])
 
     const getRoomMsg = async () => {
@@ -34,6 +39,27 @@ const Room = () => {
             });
     }
 
+    const postToken = async () => {
+        try {
+            let res = await fetch(`${API}/user/token`, {
+                method: "post",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ token: token })
+            }).then((res) => res.json())
+                .then(res => {
+                    if (res.statusCode == 200) {
+                        setNickname(res.data.nickname);
+                        setData((prev) => { return { ...prev, nickname: res.data.nickname } });
+                    }
+                })
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
+
     const fileChangeHandler = (e) => {
         const file = e.target.files[0];
         if (file.size / 1024 / 1024 > 5) {
@@ -44,26 +70,48 @@ const Room = () => {
         }
     }
 
+    const addImage = e => {
+
+        const nowSelectImageList = e.target.files;
+        //const items = nowSelectImageList.filter(item => item.size / 1024 / 1024 <= 5);
+        console.log(typeof (nowSelectImageList));
+        setData((prev) => { return { ...prev, files: nowSelectImageList } })
+
+        const nowImageURLList = [...myImage];
+        for (let i = 0; i < nowSelectImageList.length; i += 1) {
+            const nowImageUrl = URL.createObjectURL(nowSelectImageList[i]);
+            nowImageURLList.push(nowImageUrl);
+        }
+        setMyImage(nowImageURLList);
+
+    }
+
     const dataChangeHandler = (e) => {
         setData((prev) => { return { ...prev, content: e.target.value } })
     }
 
     const submitHandler = () => {
         if (data.rum && data.nickname && data.content.length) {
-            postNewData();
+            let formData = new FormData();
+            for (let i = 0; i < data.files.length; i += 1) {
+                formData.append("files", data.files[i]);
+            }
+
+            formData.append("rum", data.rum);
+            formData.append("nickname", data.nickname);
+            formData.append("content", data.content);
+            postNewData(formData);
         } else {
             console.log('파라미터부족');
+            console.log(data);
         }
     }
 
-    const postNewData = async () => {
+    const postNewData = async (formData) => {
         try {
             let res = await fetch(`${API}/postinsert`, {
                 method: "post",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data)
+                body: formData
             }).then((res) => res.json())
                 .then(res => {
                     if (res.statusCode == 200) {
@@ -88,10 +136,14 @@ const Room = () => {
                     <div className="mid-wrap">
                         <textarea name="content" onChange={dataChangeHandler} style={{ "width": "100%", "height": "50px", "margin": "20px 0", "padding": "10px", "resize": "none" }} />
                     </div>
+                    <div className='imgs'>
+                        {myImage.length ? myImage.map((item) => <img src={item} alt='img' style={{ "width": "100px", "height": "100px" }} />)
+                            : null}
+                    </div>
                     <div className="bottom-wrap" style={{ "display": "flex", "justifyContent": "space-between" }}>
 
                         <label htmlFor="file-upload" className="custom-file-upload"><FaImages size={20} className="icons" /></label>
-                        <input id="file-upload" type="file" accept="image/*" onChange={fileChangeHandler} />
+                        <input id="file-upload" type="file" accept="image/*" onChange={addImage} multiple />
                         <button onClick={submitHandler}>작성하기</button>
                     </div>
                 </div>
@@ -102,7 +154,7 @@ const Room = () => {
                 {msgList.length === 0 ?
                     <div>게시글이 없네요. 첫번째 게시글을 작성 해보세요.</div> :
                     msgList.map((item) =>
-                        <WriteItemComponent key={item.pseq} item={item} />
+                        <WriteItemComponent key={item.pseq} item={item} nickname={nickname} />
                     )
                 }
             </div>

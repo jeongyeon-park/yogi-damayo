@@ -4,7 +4,7 @@ import { FaWindowClose } from "react-icons/fa";
 import { API } from '../util/api';
 import { FaLock } from 'react-icons/fa';
 import { FaHashtag } from 'react-icons/fa';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const Background = styled.div`
   width: 100%;
@@ -63,25 +63,39 @@ z-index: 10;
 `;
 
 
-const ModalAskPw = ({ user, showModal, setShowModal }) => {
+const ModalAskPw = ({ rum, user, showModal, setShowModal }) => {
+
+    const navigate = useNavigate();
 
     const modalRef = useRef();
     const [password, setPassword] = useState("");
     const [msg, setMsg] = useState(false);
 
+    const changeHandler = (e) => {
+        setPassword(e.target.value);
+    }
+
+    const submitPw = () => {
+        if (password && rum) {
+            checkPw()
+        }
+    }
+
     const goInRoom = async () => {
         try {
             const res = await fetch(`${API}/room`, {
-                method: 'PUT',
+                method: 'put',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ run: user.rum, nickname: user.nickname })
+                body: JSON.stringify({ rum: rum, nickname: user })
             }).then((res) => res.json())
-                .then((res) => console.log(res))
+                .then((res) => {
+                    console.log(res);
+                    navigate(`/yogimoyo/room/${rum}`);
+                })
         } catch (e) {
             console.log(e);
         }
     }
-
 
     const checkPw = async () => {
         try {
@@ -90,10 +104,11 @@ const ModalAskPw = ({ user, showModal, setShowModal }) => {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ run: user.rum, password: password })
+                body: JSON.stringify({ rum: rum, password: password })
             }).then((res) => res.json())
                 .then(res => {
                     if (res.statusCode == 200) {
+                        setMsg(false);
                         goInRoom();
                     } else if (res.statusCode == 203) {
                         setMsg(true);
@@ -104,15 +119,6 @@ const ModalAskPw = ({ user, showModal, setShowModal }) => {
         }
     }
 
-    const changeHandler = (e) => {
-        setPassword(e.target.value);
-    }
-
-    const sumbitBtnClick = () => {
-        if (password.length) {
-            checkPw();
-        }
-    }
 
 
     const closeModal = e => {
@@ -155,7 +161,7 @@ const ModalAskPw = ({ user, showModal, setShowModal }) => {
 
                                 <input onChange={changeHandler} />
                                 {msg ? <div>잘못된 비밀번호입니다. 다시 입력 해 주세요.</div> : null}
-                                <button >입장하기</button>
+                                <button onClick={submitPw}>입장하기</button>
                             </div>
 
                         </ModalContent>

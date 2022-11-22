@@ -9,6 +9,8 @@ import styled from "styled-components";
 import ModalNewPopUp from '../components/ModalNewPopUp';
 import ModalAskLogin from '../components/ModalAskLogin';
 import ModalAskPw from '../components/ModalAskPw';
+import { useContext } from "react";
+import { NickNameContext } from "../App";
 
 const Container = styled.div`
     height: 100vh;
@@ -17,7 +19,9 @@ const Container = styled.div`
 const Community = () => {
 
     const token = sessionStorage.getItem('jwtToken');
-    const [userInfo, setUserInfo] = useState({ "nickname": "", "email": "" });
+
+    const userInfo = useContext(NickNameContext);
+
     const [search, setSearch] = useState("");
     const [chatList, setChatList] = useState([]);
     const [myRoomList, setMyRoomList] = useState([]);
@@ -31,34 +35,14 @@ const Community = () => {
 
     const navigate = useNavigate();
 
-    useEffect(() => {
-        postToken();
-    }, []);
+
     useEffect(() => {
         if (userInfo.nickname.length) {
             getMyRooms();
         }
     }, [userInfo]);
 
-    const postToken = async () => {
-        try {
-            let res = await fetch(`${API}/user/token`, {
-                method: "post",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ token: token })
-            }).then((res) => res.json())
-                .then(res => {
-                    if (res.statusCode == 200) {
-                        setUserInfo(res.data);
-                    }
-                })
-        }
-        catch (e) {
-            console.log(e);
-        }
-    }
+
 
     const getMyRooms = async () => {
         try {
@@ -71,6 +55,65 @@ const Community = () => {
                 }
             }
             );
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    const checkPw = async () => {
+        try {
+            let res = await fetch(`${API}/pwdcheck`, {
+                method: "post",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ userInfo })
+            }).then((res) => res.json())
+                .then(res => {
+                    if (res.statusCode == 200) {
+                        goInRoom();
+                    } else if (res.statusCode == 203) {
+
+                    }
+                })
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    const goInRoom = async () => {
+        try {
+            const res = await fetch(`${API}/room`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(userInfo)
+            }).then((res) => res.json())
+                .then((res) => console.log(res))
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    const checkRoomEnter = async (rum) => {
+        try {
+            // 
+            let res = await fetch(`${API}/room`, {
+                method: "post",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(userInfo)
+            }).then((res) => res.json())
+                .then(res => {
+                    console.log(res);
+                    if (res.statusCode == 200) {
+                        window.location.href = `/yogimoyo/room${rum}`;
+                    } else if (res.statusCode == 205) {
+                        alert("정원초과로 입장할 수 없습니다. 다른 방을 검색해보세요!");
+                    } else if (res.statusCode === 206) {
+
+                    }
+                })
         } catch (e) {
             console.log(e);
         }
@@ -106,7 +149,7 @@ const Community = () => {
                     </div>
 
                     <div className='roomList'>
-                        {chatList.map((item) => <ChatRoomItem key={item.rum} data={item} />)}
+                        {chatList.map((item) => <ChatRoomItem onClick={() => checkRoomEnter(item.rum)} key={item.rum} data={item} />)}
                     </div>
 
 

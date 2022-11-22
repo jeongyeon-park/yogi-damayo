@@ -1,8 +1,5 @@
 
-
-
-const WriteItemComponent = ({ item }) => {
-
+const WriteItemComponent = ({ item, nickname }) => {
 
     return (
         <div className="WriteItemComponent">
@@ -14,9 +11,11 @@ const WriteItemComponent = ({ item }) => {
                 {item.content}
             </div>
             <div className="bottom-wrap" >
-
+                {item.imageList.map((url) => <img src={url} alt="img" />)}
 
             </div>
+            {nickname == item.nickname ? (<div className='btns'><button>수정하기</button></div>) : null}
+
         </div>
     );
 }

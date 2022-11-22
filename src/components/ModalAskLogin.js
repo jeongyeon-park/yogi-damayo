@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { FaWindowClose } from "react-icons/fa";
 import { API } from '../util/api';
 import { FaHashtag } from 'react-icons/fa';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const Background = styled.div`
   width: 100%;
@@ -62,17 +62,28 @@ z-index: 10;
 `;
 
 
-const ModalAskLogin = ({ user, showModal, setShowModal }) => {
+const ModalAskLogin = ({ rum, title, user, showModal, setShowModal }) => {
 
     const modalRef = useRef();
+
+    const navigate = useNavigate();
+
+    const goToRoom = () => {
+        if (rum && user) {
+            goInRoom();
+        }
+    }
 
     const goInRoom = async () => {
         const res = await fetch(`${API}/room`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ run: user.rum, nickname: user.nickname })
+            body: JSON.stringify({ run: rum, nickname: user })
         }).then((res) => res.json())
-            .then((res) => console.log(res))
+            .then((res) => {
+                console.log(res);
+                navigate(`/yogimoyo/room/${rum}`);
+            })
     }
 
     const closeModal = e => {
@@ -108,10 +119,11 @@ const ModalAskLogin = ({ user, showModal, setShowModal }) => {
                         <ModalContent>
 
                             <div className='ModalNewPopUp' style={{ "textAlign": "center" }}>
-                                <div><strong>방 제목 방에 입장 하시겠습니까? </strong></div>
+                                <div><strong>{title}</strong>
+                                    <div>방에 입장 하시겠습니까?</div> </div>
 
-                                <button>네</button>
-                                <button>아니요</button>
+                                <button onClick={goToRoom}>네</button>
+                                <button onClick={() => setShowModal(prev => !prev)}>아니요</button>
                             </div>
 
                         </ModalContent>
