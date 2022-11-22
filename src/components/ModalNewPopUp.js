@@ -70,7 +70,6 @@ const ModalNewPopUp = ({ nickname, showModal, setShowModal }) => {
         "maxnum": 20,
         "tags": []
     });
-    const [password, setPassword] = useState();
 
     const [tagList, setTagList] = useState([]);
     const [msg, setMsg] = useState(false);

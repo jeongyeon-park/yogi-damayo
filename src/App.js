@@ -20,6 +20,7 @@ import LoginEmailInput from './components/LoginEmailInput';
 import Community from './pages/Community';
 import SearchCommunity from './pages/SearchCommunity';
 import Room from './pages/Room';
+import AdminLogin from './pages/AdminLogin';
 
 export const NoticeListContext = React.createContext();
 export const NickNameContext = React.createContext();
@@ -89,7 +90,7 @@ function App() {
               <Route path="/login" element={<Login />}></Route>
               <Route path="/map" element={<Map />}></Route>
               <Route path="/userLogin" element={<UserLogin />}></Route>
-              {/* <Route path="/adminLogin" element={<AdminLogin />}></Route> */}
+              <Route path="/adminLogin" element={<AdminLogin />}></Route>
             </Routes>
           </div>
         </BrowserRouter>

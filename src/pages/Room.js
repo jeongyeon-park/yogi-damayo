@@ -3,20 +3,19 @@ import { useParams } from "react-router-dom";
 import { API } from '../util/api';
 import { FaImages } from 'react-icons/fa'
 import WriteItemComponent from "../components/WriteItemComponent";
-
+import { useContext } from "react";
+import { NickNameContext } from "../App";
 const Room = () => {
+    const nickname = useContext(NickNameContext).nickname;
     const { rum } = useParams();
     const [msgList, setMsgList] = useState([]);
     const [title, setTitle] = useState([]);
     const [data, setData] = useState({
         "files": null,
         "rum": rum,
-        "nickname": "",
+        "nickname": nickname,
         "content": ""
     });
-    const token = sessionStorage.getItem('jwtToken');
-
-
 
     useEffect(() => {
         getRoomMsg();
@@ -35,6 +34,46 @@ const Room = () => {
             });
     }
 
+    const fileChangeHandler = (e) => {
+        const file = e.target.files[0];
+        if (file.size / 1024 / 1024 > 5) {
+            alert("파일크기는 5MB 를 초과할 수 없습니다. 다른 이미지를 선택 해주세요.");
+            e.target.value = null;
+        } else {
+            setData((prev) => { return { ...prev, files: file } })
+        }
+    }
+
+    const dataChangeHandler = (e) => {
+        setData((prev) => { return { ...prev, content: e.target.value } })
+    }
+
+    const submitHandler = () => {
+        if (data.rum && data.nickname && data.content.length) {
+            postNewData();
+        } else {
+            console.log('파라미터부족');
+        }
+    }
+
+    const postNewData = async () => {
+        try {
+            let res = await fetch(`${API}/postinsert`, {
+                method: "post",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data)
+            }).then((res) => res.json())
+                .then(res => {
+                    if (res.statusCode == 200) {
+                        window.location.href = `/yogimoyo/room/${rum}`;
+                    }
+                })
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
 
     return (
@@ -44,14 +83,16 @@ const Room = () => {
                 <div className="WriteItemComponent">
                     <div className="top-wrap" style={{ "display": "flex", "justifyContent": "start", "alignItems": "center" }}>
                         <img src="/img/yogi_damayo_logo/yogi.jpg" alt="profile" style={{ "width": "50px", "borderRadius": "20px" }} />
-                        <strong>닉네임</strong>
+                        <strong>{nickname}</strong>
                     </div>
                     <div className="mid-wrap">
-                        <textarea style={{ "width": "100%", "height": "50px", "margin": "20px 0", "padding": "10px" }} />
+                        <textarea name="content" onChange={dataChangeHandler} style={{ "width": "100%", "height": "50px", "margin": "20px 0", "padding": "10px", "resize": "none" }} />
                     </div>
                     <div className="bottom-wrap" style={{ "display": "flex", "justifyContent": "space-between" }}>
-                        <FaImages size={20} />
-                        <button>작성하기</button>
+
+                        <label htmlFor="file-upload" className="custom-file-upload"><FaImages size={20} className="icons" /></label>
+                        <input id="file-upload" type="file" accept="image/*" onChange={fileChangeHandler} />
+                        <button onClick={submitHandler}>작성하기</button>
                     </div>
                 </div>
             </div>

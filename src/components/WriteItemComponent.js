@@ -1,6 +1,8 @@
 
 
+
 const WriteItemComponent = ({ item }) => {
+
 
     return (
         <div className="WriteItemComponent">
@@ -11,7 +13,7 @@ const WriteItemComponent = ({ item }) => {
             <div className="mid-wrap">
                 {item.content}
             </div>
-            <div className="bottom-wrap">
+            <div className="bottom-wrap" >
 
 
             </div>

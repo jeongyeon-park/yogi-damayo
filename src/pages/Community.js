@@ -7,6 +7,8 @@ import ChatRoomItem from '../components/ChatRoomItem';
 import { useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 import ModalNewPopUp from '../components/ModalNewPopUp';
+import ModalAskLogin from '../components/ModalAskLogin';
+import ModalAskPw from '../components/ModalAskPw';
 
 const Container = styled.div`
     height: 100vh;
@@ -19,13 +21,13 @@ const Community = () => {
     const [search, setSearch] = useState("");
     const [chatList, setChatList] = useState([]);
     const [myRoomList, setMyRoomList] = useState([]);
-    const [msg, setMsg] = useState("");
 
     const [modalOpen, setModalOpen] = useState(false);
 
-    const searchTag = useState(false);
+    const [askModalOpen, setAskModalOpen] = useState(false);
+    const [PwModalOpen, setPwModalOpen] = useState(false);
 
-    const resultTag = useRef();
+    const searchTag = useState(false);
 
     const navigate = useNavigate();
 
@@ -74,40 +76,10 @@ const Community = () => {
         }
     }
 
-    const handleChange = (e) => {
-        setSearch(e.target.value);
-    }
-
-    const clickSearch = () => {
-        if (search.length) {
-            getSearchChat();
-        }
-    }
-
-    const getSearchChat = async () => {
-        try {
-            const res = await fetch(`${API}/searchroom?keyword=${search}`
-            ).then((res) => res.json()
-            ).then(res => {
-                if (res.statusCode == 200) {
-                    setChatList(res.data);
-                    setMsg("");
-                    this.searchTag.classList.add('hide');
-                }
-                else if (res.statusCode == 203) {
-                    setMsg(() => res.data)
-                }
-            }
-            );
-
-        } catch (e) {
-            console.log(e);
-        }
-    }
-
     return (
         <>
-            <ModalNewPopUp nickname={userInfo.nickname} showModal={modalOpen} setShowModal={setModalOpen} />
+            <ModalAskPw user={userInfo} showModal={modalOpen} setShowModal={setModalOpen} />
+
             <div className='Community'>
 
                 <Container>
@@ -133,8 +105,8 @@ const Community = () => {
                         </div>
                     </div>
 
-                    <div className='roomList' ref={resultTag}>
-                        {chatList.map((item, idx) => <ChatRoomItem key={idx} data={item} />)}
+                    <div className='roomList'>
+                        {chatList.map((item) => <ChatRoomItem key={item.rum} data={item} />)}
                     </div>
 
 

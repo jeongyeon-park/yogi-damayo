@@ -14,6 +14,15 @@ const SearchCommunity = () => {
             getSearchChat();
         }
     }
+    const handleOnKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            getSearchChat();
+        }
+    }
+
+    const handleChange = (e) => {
+        setSearch(e.target.value);
+    }
 
     const getSearchChat = async () => {
         try {
@@ -35,14 +44,18 @@ const SearchCommunity = () => {
             console.log(e);
         }
     }
-    const handleChange = (e) => {
-        setSearch(e.target.value);
-    }
+
 
     return (
         <div className="SearchCommunity">
             <div className="search-wrap">
-                <input className="tag-search" placeholder='이름/태그 검색' onChange={handleChange} /><FaSearch style={{ "position": "relative", "right": "30px", "top": "3px" }} onClick={clickSearch} />
+                <input
+                    className="tag-search"
+                    placeholder='이름/태그 검색'
+                    onChange={handleChange}
+                    onKeyPress={handleOnKeyPress}
+                />
+                <FaSearch style={{ "position": "relative", "right": "30px", "top": "3px" }} onClick={clickSearch} />
             </div>
             <div className="result-wrap">
                 {msg ? <div style={{ "textAlign": "center" }}>일치하는 방이 없습니다. <br /> 다른 검색어를 입력 해주세요.</div> : <div></div>}

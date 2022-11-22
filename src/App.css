@@ -137,6 +137,21 @@ body{
   text-align: center;
   font-family: 'Jua', sans-serif;
 }
+.AdminLogin{
+  text-align: center;
+}
+.AdminLogin .title{
+  font-family: 'Jua', sans-serif;
+}
+.AdminLogin div{
+  margin-top: 10px;
+}
+.AdminLogin input{
+  padding: 6px 12px ;
+  border: 1px solid grey;
+  border-radius: 3px;
+}
+
 
 
 /* HEADER */
@@ -499,6 +514,11 @@ td {
 .WriteItemComponent {
   padding: 10px;
 }
+
+
+
+
+
 
 @media screen and (max-width: 768px) {
   html {
