@@ -7,6 +7,8 @@ import { NickNameContext } from "../App";
 import ModalAskLogin from './ModalAskLogin';
 
 const ChatRoomItem = ({ data }) => {
+    const imgUrlNum = Math.floor(Math.random() * (6 - 1)) + 1;
+    const imgUrl = `/img/chat_room_logo/${imgUrlNum}.jpg`;
 
     const rum = data.rum;
     const [info, setInfo] = useState(data);
@@ -93,7 +95,7 @@ const ChatRoomItem = ({ data }) => {
             <ModalAskPw rum={rum} user={nickname} showModal={pwModal} setShowModal={setPwModal} />
             <ModalAskLogin rum={rum} title={info['title']} user={nickname} showModal={askModal} setShowModal={setAskModal} />
             <div onClick={checkValues} className='RoomItem' style={{ "border": "1px solid grey", "borderRadius": "5px", "width": "20rem", "padding": "20px" }}>
-                <img src="/img/yogi_damayo_logo/AdminLogin.jpg" alt="image" style={{ "width": "100%" }} />
+                <img src={imgUrl} alt="image" style={{ "width": "100%" }} />
                 <div><strong>{info['title']}</strong></div>
                 <div>{info['count']}명 / {info['maxnum']}명</div>
                 {/* {info['tags'].length ? info['tags'].map((tag) => <div>#{tag}</div>) : null} */}
