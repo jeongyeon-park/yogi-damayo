@@ -7,6 +7,8 @@ import SearchResultComponent from "../components/SearchResultComponent";
 
 import GetUserInfo from '../components/GetUserInfo';
 
+import AdminNotice from '../pages/AdminNotice';
+
 const Home = () => {
     const [file, setFile] = useState();
 

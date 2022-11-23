@@ -77,7 +77,7 @@ function App() {
         <BrowserRouter>
           <div className='App'>
             <Header />
-            <AdminNotice />
+
             <Routes>
               <Route path="/" element={<Home />}></Route>
               <Route path="/oauth/kakao/callback" element={<GrabAuth />} />

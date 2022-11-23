@@ -23,8 +23,11 @@ const AdminNotice = () => {
 
     const [indexOfLastPost, setIndexOfLastPost] = useState(page.currentPage * page.postsPerPage); // 현재페이지의 마지막 글
     const [indexOfFirstPost, setindexOfFirstPost] = useState(indexOfLastPost - page.postsPerPage); // 현재페이지의 첫번째 글 
-    const [currentPosts, setCurrentPosts] = useState(noticeList.slice(indexOfFirstPost, indexOfLastPost));
+    const [currentPosts, setCurrentPosts] = useState(page.posts.slice(indexOfFirstPost, indexOfLastPost));
     const [pageNumbers, setPageNumbers] = useState(handlePageNumbers);
+
+
+
 
     useEffect(() => {
         setIndexOfLastPost(page.currentPage * page.postsPerPage);
