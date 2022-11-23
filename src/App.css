@@ -201,6 +201,11 @@ body{
   margin-top: 30px;
   
 }
+
+/* ADMIN HEADER */
+.AdminHeader li img{
+  width: 35px;
+}
 /* BULLETIN BOARD */
 .BulletinBoard{
 

@@ -20,7 +20,9 @@ import LoginEmailInput from './components/LoginEmailInput';
 import Community from './pages/Community';
 import SearchCommunity from './pages/SearchCommunity';
 import Room from './pages/Room';
-import AdminLogin from './pages/AdminLogin';
+import AdminHeader from './components/AdminHeader';
+import AdminMain from './pages/AdminMain'
+import AdminNotice from './pages/AdminNotice';
 
 export const NoticeListContext = React.createContext();
 export const NickNameContext = React.createContext();
@@ -75,6 +77,7 @@ function App() {
         <BrowserRouter>
           <div className='App'>
             <Header />
+            <AdminNotice />
             <Routes>
               <Route path="/" element={<Home />}></Route>
               <Route path="/oauth/kakao/callback" element={<GrabAuth />} />
@@ -90,7 +93,6 @@ function App() {
               <Route path="/login" element={<Login />}></Route>
               <Route path="/map" element={<Map />}></Route>
               <Route path="/userLogin" element={<UserLogin />}></Route>
-              <Route path="/adminLogin" element={<AdminLogin />}></Route>
             </Routes>
           </div>
         </BrowserRouter>
