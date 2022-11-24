@@ -4,6 +4,8 @@ import { FaWindowClose } from "react-icons/fa";
 import { API } from '../util/api';
 import { FaHashtag } from 'react-icons/fa';
 import { useNavigate, useParams } from 'react-router-dom';
+import Slider from "react-slick";
+
 
 const Background = styled.div`
   width: 100%;
@@ -61,30 +63,10 @@ padding: 0;
 z-index: 10;
 `;
 
-
-const ModalAskLogin = ({ rum, title, user, showModal, setShowModal }) => {
-
+const ModalImgPopup = ({ files, showModal, setShowModal }) => {
     const modalRef = useRef();
 
     const navigate = useNavigate();
-
-    const goToRoom = () => {
-        if (rum && user) {
-            goInRoom();
-        }
-    }
-
-    const goInRoom = async () => {
-        const res = await fetch(`${API}/room`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ rum: rum, nickname: user })
-        }).then((res) => res.json())
-            .then((res) => {
-                console.log(res);
-                navigate(`/yogimoyo/room/${rum}`);
-            })
-    }
 
     const closeModal = e => {
         if (modalRef.current === e.target) {
@@ -110,6 +92,13 @@ const ModalAskLogin = ({ rum, title, user, showModal, setShowModal }) => {
         [keyPress]
     );
 
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1
+    };
 
     return (
         <>
@@ -118,13 +107,14 @@ const ModalAskLogin = ({ rum, title, user, showModal, setShowModal }) => {
                     <ModalWrapper showModal={showModal}>
                         <ModalContent>
 
-                            <div className='ModalNewPopUp' style={{ "textAlign": "center" }}>
-                                <div><strong>{title}</strong>
-                                    <div>방에 입장 하시겠습니까?</div> </div>
-
-
-                                <button onClick={goToRoom} >네</button>
-                                <button onClick={() => setShowModal(prev => !prev)}>아니요</button>
+                            <div >
+                                <h2> Single Item</h2>
+                                <Slider {...settings}>
+                                    <div><h3>1</h3></div>
+                                    <div><h3>2</h3></div>
+                                    <div><img src='/img/chat_room_logo/2.jpg' /></div>
+                                    {/* {files.map((item) => <div key={item.image_name}><img src={item.image_name} alt="preview" style={{ "width": "200px" }} /></div>)} */}
+                                </Slider>
                             </div>
 
                         </ModalContent>
@@ -138,6 +128,7 @@ const ModalAskLogin = ({ rum, title, user, showModal, setShowModal }) => {
             ) : null}
         </>
     )
+
 }
 
-export default ModalAskLogin;
+export default ModalImgPopup;

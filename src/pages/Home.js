@@ -111,7 +111,7 @@ const Home = () => {
                         <input id="file-upload" type="file" accept="image/*" onChange={fileChangeHandler} />
                     </div>
 
-                    <div className="search-result" style={{ "display": "flex", "justifyContent": "center" }} >
+                    <div className="search-result" >
                         {(keyword.length ? searchResult.map((item, idx) => (<SearchResultComponent key={idx} no={item.no} type={item.type} name={item.d_name} img={item.d_image} />)) : null)}
                     </div>
 
@@ -132,10 +132,10 @@ const Home = () => {
                                         </button>
                                     </div>
 
-                                    <button className="btn-new-img">
-                                        <label htmlFor="file-upload" className="custom-file-upload">다른 이미지로 검색하기</label>
-                                        <input id="file-upload" type="file" accept="image/*" onChange={fileChangeHandler} />
-                                    </button>
+
+                                    <label htmlFor="file-upload" className="btn-new-img custom-file-upload">다른 이미지로 검색하기</label>
+
+                                    <input id="file-upload" type="file" accept="image/*" onChange={fileChangeHandler} />
 
                                 </div>
 

@@ -1,8 +1,9 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { NoticeListContext } from '../App';
 
 const NoticeContent = () => {
+    const contentRef = useRef();
     const navigate = useNavigate();
     const [noticeContent, setNoticeContent] = useState({
         id: 0,
@@ -12,8 +13,6 @@ const NoticeContent = () => {
         content: "",
         reg_date: "",
     });
-    const [preContent, setPreContent] = useState({});
-    const [nextContent, setNextContent] = useState({});
 
     const noticeData = useContext(NoticeListContext);
 
@@ -34,7 +33,9 @@ const NoticeContent = () => {
             <div className='NoticeContent'>
                 <div className='notice-title'>{noticeContent.title}</div>
                 <div className='notice-writer'>작성자: {noticeContent.writer} | 작성일: {noticeContent.reg_date.slice(0, 10)}</div>
-                <div className='notice-content'>{noticeContent.content}</div>
+                <div className='notice-content' ref={contentRef}>{
+                    noticeContent.content.split('<br/>').map(item => <div style={{ "marginBottom": "20px" }}>{item}</div>)
+                }</div>
                 <div className='other-list'>
                     <div className='next-page'>
                         <p>이전글</p>

@@ -2,7 +2,8 @@ import React, { useRef, useEffect, useCallback, useState } from 'react';
 import styled from 'styled-components'
 import { FaWindowClose } from "react-icons/fa";
 import { API } from '../util/api';
-import { FaHashtag } from 'react-icons/fa';
+import { FaHashtag, FaTimesCircle } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 const Background = styled.div`
   width: 100%;
@@ -60,16 +61,18 @@ padding: 0;
 z-index: 10;
 `;
 
-
 const ModalNewPopUp = ({ nickname, showModal, setShowModal }) => {
     const [data, setData] = useState({
         "nickname": nickname,
         "title": "",
         "password": null,
         "rm_type": 0,
-        "maxnum": 20,
+        "maxnum": 0,
         "tags": []
     });
+
+    const navigate = useNavigate();
+
 
     const [tagList, setTagList] = useState([]);
     const [msg, setMsg] = useState(false);
@@ -92,18 +95,19 @@ const ModalNewPopUp = ({ nickname, showModal, setShowModal }) => {
 
 
     const handleOnKeyPress = (e) => {
-        if (e.key === 'Enter') {
+        if (e.key === 'Enter' && e.target.value.trim() && !tagList.includes(e.target.value)) {
             changeTag(e.target.value); // Enter 입력이 되면 클릭 이벤트 실행
             e.target.value = null;
         }
     }
 
     const checkData = () => {
-        if (data.rm_type == 0 && data.nickname && data.title && data.maxnum) {
+        if (data.rm_type == 0 && data.nickname && data.title && data.maxnum > 1) {
             postNewRoom();
-        } else if (data.rm_type == 1 && data.nickname && data.title && data.maxnum && data.password) {
+        } else if (data.rm_type == 1 && data.nickname && data.title && data.maxnum && data.password && data.maxnum > 1) {
             postNewRoom();
         } else {
+            console.log(data);
             setMsg(true);
         }
     }
@@ -120,6 +124,7 @@ const ModalNewPopUp = ({ nickname, showModal, setShowModal }) => {
                 .then((res) => {
                     if (res.statusCode == 200) {
                         setShowModal(false);
+                        window.location.href = `/yogimoyo`;
                     }
                 })
         } catch (e) {
@@ -144,7 +149,7 @@ const ModalNewPopUp = ({ nickname, showModal, setShowModal }) => {
                     "title": "",
                     "password": null,
                     "rm_type": 0,
-                    "maxnum": 20,
+                    "maxnum": 0,
                     "tags": []
                 })
                 setTagList([]);
@@ -161,7 +166,7 @@ const ModalNewPopUp = ({ nickname, showModal, setShowModal }) => {
                 "title": "",
                 "password": null,
                 "rm_type": 0,
-                "maxnum": 20,
+                "maxnum": 0,
                 "tags": []
             })
             setTagList([]);
@@ -186,20 +191,32 @@ const ModalNewPopUp = ({ nickname, showModal, setShowModal }) => {
                                 <div>"비밀방" 을 체크하면 비밀번호를 설정해서 비밀방을 만들 수 있어요!</div>
                                 <div style={{ "marginTop": "30px", "marginBottom": "40px" }}>
 
-                                    <div><span>방 제목</span><input name='title' onChange={changeData} /></div>
-                                    <div>최대 인원수 <input name='maxnum' type="num" min={2} max={100} onChange={changeData} /></div>
-                                    <div>태그 <input name='tag' onKeyPress={handleOnKeyPress} placeholder="태그입력 후 엔터를 눌러주세요." /></div>
+                                    <div className='form-wrap'>
+                                        <div className='div-wrap'>
+                                            <span>방 제목</span>
+                                            <input name='title' onChange={changeData} autocomplete="off" />
+                                        </div>
+                                        <div className='div-wrap'>
+                                            <span>최대 인원수</span>
+                                            <input name='maxnum' type="number" min={2} max={100} onChange={changeData} autocomplete="off" />
+                                        </div>
+                                        <div className='div-wrap'>
+                                            <span>태그</span>
+                                            <input name='tag' onKeyPress={handleOnKeyPress} placeholder="태그입력 후 엔터를 눌러주세요." autocomplete="off" />
+                                        </div>
+                                    </div>
+
                                     <div className='tag-list'>
-                                        {tagList.map((item) => <span className='tag'><FaHashtag style={{ "marginTop": "5px" }} />{item}</span>)}
+                                        {tagList.map((item) => <div className='tag'><FaHashtag />{item}<FaTimesCircle color='#ff8080' style={{ "marginLeft": "10px", "cursor": "pointer" }} onClick={() => { setTagList((prev) => prev.filter((ele) => ele != item)) }} /></div>)}
                                     </div>
                                     <div>
                                         <label>
-                                            <input type="checkbox" name="rm_type" value="1" onChange={changeData} /> 비밀방으로 방 생성하기
+                                            <input type="checkbox" name="rm_type" value="1" onChange={changeData} autocomplete="off" /> 비밀방으로 방 생성하기
                                         </label>
                                     </div>
                                     {
                                         data.rm_type == 1 ?
-                                            <div ><input className='password' name="password" onChange={changeData} placeholder="비밀번호를 입력해주세요." /> </div>
+                                            <div className='pw-input'><input className='password' name="password" onChange={changeData} placeholder="비밀번호를 입력해주세요." /> </div>
                                             : null
                                     }
                                 </div>

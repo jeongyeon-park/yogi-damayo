@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { API } from '../util/api';
 import ModalAskPw from './ModalAskPw';
@@ -6,20 +6,23 @@ import ModalAskPw from './ModalAskPw';
 import { NickNameContext } from "../App";
 import ModalAskLogin from './ModalAskLogin';
 
-const ChatRoomItem = ({ data }) => {
+import { FaLock, FaHashtag } from 'react-icons/fa';
+
+const ChatRoomItem = ({ userInfo, data }) => {
     const imgUrlNum = Math.floor(Math.random() * (6 - 1)) + 1;
     const imgUrl = `/img/chat_room_logo/${imgUrlNum}.jpg`;
 
     const rum = data.rum;
     const [info, setInfo] = useState(data);
-    console.log(info);
-    const userInfo = useContext(NickNameContext);
+
     const nickname = userInfo.nickname;
-    console.log(nickname);
+
     const navigate = useNavigate();
 
     const [pwModal, setPwModal] = useState(false);
     const [askModal, setAskModal] = useState(false);
+
+
 
     const checkValues = () => {
         if (rum && nickname) {
@@ -72,38 +75,24 @@ const ChatRoomItem = ({ data }) => {
         }
     }
 
-    // 방에 들어가기 
-    const goInRoom = async () => {
-        try {
-            const res = await fetch(`${API}/room`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(userInfo)
-            }).then((res) => res.json())
-                .then((res) => {
-                    navigate(`/yogimoyo/room/${rum}`);
-                    console.log(res);
-                })
-        } catch (e) {
-            console.log(e);
-        }
-    }
-
     return (
 
-        <div className='room-item-wrap'>
+        <div className='room-item-wrap' style={{ "cursor": "pointer" }}>
             <ModalAskPw rum={rum} user={nickname} showModal={pwModal} setShowModal={setPwModal} />
             <ModalAskLogin rum={rum} title={info['title']} user={nickname} showModal={askModal} setShowModal={setAskModal} />
-            <div onClick={checkValues} className='RoomItem' style={{ "border": "1px solid grey", "borderRadius": "5px", "width": "20rem", "padding": "20px" }}>
-                <img src={imgUrl} alt="image" style={{ "width": "100%" }} />
-                <div><strong>{info['title']}</strong></div>
+            <div onClick={checkValues} className='RoomItem' style={{ "border": "1px solid #ececec", "borderRadius": "5px", "width": "20rem", "padding": "20px" }}>
+                <img src={imgUrl} alt="img" style={{ "width": "100%" }} />
+                <div>{info['rm_type'] == 1 ? <FaLock style={{ "marginRight": "5px" }} /> : null}<strong>{info['title']}</strong></div>
                 <div>{info['count']}명 / {info['maxnum']}명</div>
-                {/* {info['tags'].length ? info['tags'].map((tag) => <div>#{tag}</div>) : null} */}
+                <div style={{ "display": "flex", "justifyContent": "center", "marginTop": "10px", "flexWrap": "wrap" }}>
+                    {info['tags'].length && info['tags'][0] != "" ? info['tags'].map((tag) => <div className='tag'><FaHashtag />{tag}</div>) : null}
+                </div>
+
             </div>
         </div>
 
     );
 }
 
-export default ChatRoomItem;
+export default React.memo(ChatRoomItem);
 

@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { API } from '../util/api';
-import { FaImages } from 'react-icons/fa'
+import { FaImages, FaAngleLeft } from 'react-icons/fa'
 import WriteItemComponent from "../components/WriteItemComponent";
-import { useNavigate } from 'react-router-dom';
 
 const Room = () => {
     const token = sessionStorage.getItem('jwtToken');
@@ -12,19 +11,23 @@ const Room = () => {
     const [msgList, setMsgList] = useState([]);
     const [title, setTitle] = useState([]);
     const [data, setData] = useState({
-        "files": [],
+        "files": null,
         "rum": rum,
         "nickname": "",
         "content": ""
     });
 
     const [myImage, setMyImage] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         postToken();
         getRoomMsg();
 
     }, [])
+
+    const [fileList, setFileList] = useState([]);
+
 
     const getRoomMsg = async () => {
         const res = await fetch(`${API}/post/${rum}`)
@@ -72,12 +75,16 @@ const Room = () => {
 
     const addImage = e => {
 
-        const nowSelectImageList = e.target.files;
+        const nowSelectImageList = Object.values(e.target.files).filter(item => item.size / 1024 / 1024 <= 5);
+
+        if (nowSelectImageList.length != Object.values(e.target.files).length) {
+            alert("이미지는 5mb를 초과하지 못합니다. 5mb가 넘는 이미지는 자동으로 삭제됩니다. ")
+        }
         //const items = nowSelectImageList.filter(item => item.size / 1024 / 1024 <= 5);
         console.log(typeof (nowSelectImageList));
         setData((prev) => { return { ...prev, files: nowSelectImageList } })
 
-        const nowImageURLList = [...myImage];
+        const nowImageURLList = [];
         for (let i = 0; i < nowSelectImageList.length; i += 1) {
             const nowImageUrl = URL.createObjectURL(nowSelectImageList[i]);
             nowImageURLList.push(nowImageUrl);
@@ -86,17 +93,20 @@ const Room = () => {
 
     }
 
+
     const dataChangeHandler = (e) => {
         setData((prev) => { return { ...prev, content: e.target.value } })
     }
 
     const submitHandler = () => {
+        console.log("submit");
         if (data.rum && data.nickname && data.content.length) {
             let formData = new FormData();
-            for (let i = 0; i < data.files.length; i += 1) {
-                formData.append("files", data.files[i]);
+            if (data.files) {
+                for (let i = 0; i < data.files.length; i += 1) {
+                    formData.append("files", data.files[i]);
+                }
             }
-
             formData.append("rum", data.rum);
             formData.append("nickname", data.nickname);
             formData.append("content", data.content);
@@ -109,7 +119,7 @@ const Room = () => {
 
     const postNewData = async (formData) => {
         try {
-            let res = await fetch(`${API}/postinsert`, {
+            let res = await fetch(`${API}/post`, {
                 method: "post",
                 body: formData
             }).then((res) => res.json())
@@ -126,15 +136,20 @@ const Room = () => {
 
     return (
         <div className="Room">
-            <div style={{ "textAlign": "center" }}>{title}</div>
-            <div className="write-wrap" style={{ "marginBottom": "40px" }}>
+            <div className='room-title-wrap' >
+                <FaAngleLeft onClick={() => navigate('/yogimoyo')} size={20} style={{ "padding": "10px", "cursor": "pointer" }} />
+                <div className='room-title'>{title}</div>
+                <div style={{ "padding": "5px" }}></div>
+            </div>
+            <div style={{ "textAlign": "center" }}>게시글을 작성해서 자유롭게 소통 해보세요!<br />5mb 이상의 사진은 업로드 할 수 없습니다.</div>
+            <div className="write-wrap" style={{ "marginBottom": "40px", "borderBottom": "1px solid grey", "padding": "20px" }}>
                 <div className="WriteItemComponent">
                     <div className="top-wrap" style={{ "display": "flex", "justifyContent": "start", "alignItems": "center" }}>
                         <img src="/img/yogi_damayo_logo/yogi.jpg" alt="profile" style={{ "width": "50px", "borderRadius": "20px" }} />
                         <strong>{nickname}</strong>
                     </div>
                     <div className="mid-wrap">
-                        <textarea name="content" onChange={dataChangeHandler} style={{ "width": "100%", "height": "50px", "margin": "20px 0", "padding": "10px", "resize": "none" }} />
+                        <textarea name="content" onChange={dataChangeHandler} style={{ "width": "98%", "height": "50px", "margin": "20px 0", "padding": "10px", "resize": "none" }} />
                     </div>
                     <div className='imgs'>
                         {myImage.length ? myImage.map((item) => <img src={item} alt='img' style={{ "width": "100px", "height": "100px" }} />)
@@ -142,9 +157,9 @@ const Room = () => {
                     </div>
                     <div className="bottom-wrap" style={{ "display": "flex", "justifyContent": "space-between" }}>
 
-                        <label htmlFor="file-upload" className="custom-file-upload"><FaImages size={20} className="icons" /></label>
+                        <label htmlFor="file-upload" className="custom-file-upload"><FaImages size={20} className="icons" style={{ "position": "relative", "left": "-15px" }} /></label>
                         <input id="file-upload" type="file" accept="image/*" onChange={addImage} multiple />
-                        <button onClick={submitHandler}>작성하기</button>
+                        <button onClick={submitHandler} className='submit-btn-style'>작성하기</button>
                     </div>
                 </div>
             </div>
@@ -158,7 +173,7 @@ const Room = () => {
                     )
                 }
             </div>
-        </div>
+        </div >
     );
 }
 
